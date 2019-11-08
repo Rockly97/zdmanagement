@@ -17,8 +17,10 @@ public class AdminController {
 
 
     @GetMapping({"/login"})
-    public String login(HttpServletRequest request){
-        return "admin/login";
+    public String login(HttpServletRequest request,HttpSession session){
+        session.setAttribute("loginUser","1111");
+        session.setAttribute("loginUserId","111");
+        return "/login";
     }
 
     //获取登录用户名密码验证
@@ -67,18 +69,17 @@ public class AdminController {
      * @return
      */
     @GetMapping({"","/","/index","/index.html"})
-    public String index(HttpServletRequest request){
+    public String index(HttpServletRequest request,HttpSession session){
         request.setAttribute("path","index");
+        session.setAttribute("loginUser","1111");
+        session.setAttribute("loginUserId","111");
         //标签展示
-//        request.setAttribute("categoryCount",blogCategoriesService.getTotalCategories());
-//        request.setAttribute("blogCount",blogService.getTotalBlos());
-//        request.setAttribute("linkCount",1);
-//        request.setAttribute("tagCount",blogTagService.getTotalTags());
-//        request.setAttribute("commentCount",blogCommentService.getTotalComments());
-
-
-
-        return "admin/index";
+        request.setAttribute("categoryCount",1);
+        request.setAttribute("blogCount",1);
+        request.setAttribute("linkCount",1);
+        request.setAttribute("tagCount",1);
+        request.setAttribute("commentCount",1);
+        return "index";
     }
 
 
