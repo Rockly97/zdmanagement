@@ -127,4 +127,11 @@ public class AdminController {
         return "admin/login";
     }
 
+    @GetMapping("/blogs")
+    public String blogs(HttpServletRequest request,HttpSession session){
+        request.setAttribute("path","blogs");
+        return "blog";
+    }
+
+
 }

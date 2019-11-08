@@ -1,4 +1,4 @@
-package com.zdxt.util;
+package com.zdxt.common.util;
 
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;

@@ -1,16 +1,12 @@
 $(function () {
 
     $("#jqGrid").jqGrid({
-        url: '/admin/blogs/list',
+        url: '/admin/banner/list',
         datatype: "json",
         colModel: [
-            {label: 'id', name: 'blogId', index: 'blogId', width: 50, key: true, hidden: true},
-            {label: '标题', name: 'blogTitle', index: 'blogTitle', width: 80},
-            {label: '预览图', name: 'blogCoverImage', index: 'blogCoverImage', width: 100, formatter: coverImageFormatter},
-            {label: '浏览量', name: 'blogViews', index: 'blogViews', width: 40},
-            {label: '状态', name: 'blogStatus', index: 'blogStatus', width: 40, formatter: statusFormatter},
-            {label: '博客分类', name: 'blogCategoryName', index: 'blogCategoryName', width: 40},
-            {label: '添加时间', name: 'createTime', index: 'createTime', width: 80}
+            {label: 'id', name: 'id', index: 'id', width: 50, key: true, hidden: true},
+            {label: '预览图', name: 'img', index: 'img', width: 100, formatter: coverImageFormatter},
+            {label: '描述', name: 'descrip', index: 'descrip', width: 80},
         ],
         height: 700,
         rowNum: 10,
@@ -23,10 +19,7 @@ $(function () {
         multiselect: true,
         pager: "#jqGridPager",
         jsonReader: {
-            root: "data.list",
-            page: "data.currPage",
-            total: "data.totalPage",
-            records: "data.totalCount"
+            root: "data",
         },
         prmNames: {
             page: "page",
@@ -77,7 +70,7 @@ function search() {
     //点击搜索按钮默认都从第一页开始
     $("#jqGrid").jqGrid("setGridParam", {page: 1});
     //提交post并刷新表格
-    $("#jqGrid").jqGrid("setGridParam", {url: '/admin/blogs/list'}).trigger("reloadGrid");
+    $("#jqGrid").jqGrid("setGridParam", {url: '/admin/banner/list'}).trigger("reloadGrid");
 }
 
 /**
@@ -91,7 +84,7 @@ function reload() {
 }
 
 function addBlog() {
-    window.location.href = "/admin/blogs/edit";
+    window.location.href = "/admin/banner/edit";
 }
 
 function editBlog() {
@@ -99,7 +92,7 @@ function editBlog() {
     if (id == null) {
         return;
     }
-    window.location.href = "/admin/blogs/edit/" + id;
+    window.location.href = "/admin/banner/edit/" + id;
 }
 
 function deleteBlog() {
@@ -117,7 +110,7 @@ function deleteBlog() {
             if (flag) {
                 $.ajax({
                     type: "POST",
-                    url: "/admin/blogs/delete",
+                    url: "/admin/banner/delete",
                     contentType: "application/json",
                     data: JSON.stringify(ids),
                     success: function (r) {
