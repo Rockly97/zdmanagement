@@ -20,6 +20,7 @@ public class AdminController {
     public String login(HttpServletRequest request,HttpSession session){
         session.setAttribute("loginUser","1111");
         session.setAttribute("loginUserId","111");
+
         return "/login";
     }
 
