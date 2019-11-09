@@ -41,4 +41,9 @@ public class BannerController {
         }
 
     }
+    @GetMapping({"/banner/edit"})
+    public String bannerEdit(HttpServletRequest request, HttpSession session){
+        request.setAttribute("path","banner");
+        return "banneredit";
+    }
 }
