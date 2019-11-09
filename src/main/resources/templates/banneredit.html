@@ -28,38 +28,47 @@
                     </div>
                     <div class="card-body">
                         <!-- 几个基础的输入框，名称、分类等输入框 -->
-                        <div class="form-group" style="display:flex;">
-                            <img id="upload_img_tmp" height="200" width="320" style="margin: 20px 0">
-                                <div class="input-group">
-                                    <input id="upload_img" class="form-control" readonly type="text">
-                                    <label class="input-group-btn">
-                                        <input id="file" type="file" name="file"
-                                               style="left: -9999px; position: absolute;">
-                                        <span style="background-color:#0f800a;padding: 2px 8px;color: white">添加图片</span>
-                                    </label>
-                                </div>
-                        </div>
                         <form id="blogForm" onsubmit="return false;">
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <th:block th:if="${null == blog}">
+                                        <img id="blogCoverImage" src="/admin/dist/img/img-upload.png"
+                                             style="height: 64px;width: 64px;">
+                                    </th:block>
+                                    <th:block th:unless="${null == blog}">
+                                        <img id="blogCoverImage" th:src="${blog.blogCoverImage}"
+                                             style="width:160px ;height: 120px;display:block;">
+                                    </th:block>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <button class="btn btn-info" style="margin-bottom: 5px;" id="uploadCoverImage">
+                                        <i class="fa fa-picture-o"></i>&nbsp;上传图片
+                                    </button>
+                                </div>
+                            </div>
                             <div class="form-group" style="display:flex;">
                                 <input type="hidden" id="blo】】】】】】】】gId" name="blogId"
                                        th:value="${banner!=null and banner.id!=null }?${banner.id}: 0">
                                 <input type="text" class="form-control col-sm-6" id="blogName" name="blogName"
-                                       placeholder="*请输入文章标题(必填)"
+                                       placeholder="*请输入描述"
                                        th:value="${banner!=null and banner.blogTitle!=null }?${blog.blogTitle}: ''"
                                        required="true">
                                 &nbsp;&nbsp;
                             </div>
 
 
-                                <div class="form-group">
-                                    <!-- 按钮 -->
-                                    &nbsp;<button class="btn btn-info float-right" style="margin-left: 5px;"
-                                                  id="confirmButton">保存文章
-                                </button>&nbsp;
-                                    &nbsp;<button class="btn btn-secondary float-right" style="margin-left: 5px;"
-                                                  id="cancelButton">返回文章列表
-                                </button>&nbsp;
-                                </div>
+                            <div class="form-group">
+                                <!-- 按钮 -->
+                                &nbsp;<button class="btn btn-info float-right" style="margin-left: 5px;"
+                                              id="confirmButton">保存Banner图
+                            </button>&nbsp;
+                                &nbsp;<button class="btn btn-secondary float-right" style="margin-left: 5px;"
+                                              id="cancelButton">返回Banner图列表
+                            </button>&nbsp;
+                            </div>
                         </form>
                     </div>
 
@@ -70,7 +79,7 @@
     </div>
     <!-- /.content-wrapper -->
     <!-- 引入页脚footer-fragment -->
-    <div th:replace="admin/footer::footer-fragment"></div>
+    <div th:replace="footer::footer-fragment"></div>
 </div>
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>

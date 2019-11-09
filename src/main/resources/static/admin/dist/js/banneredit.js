@@ -24,6 +24,19 @@ $(function () {
         }
     });
 
+    // $("#uploadCoverImage").change(function (e) {
+    //     var file = e.target.files[0] || e.dataTransfer.files[0];
+    //     $('#upload_img').val(document.getElementById("file").files[0].name);
+    //     if (file) {
+    //         var reader = new FileReader();
+    //         reader.onload = function () {
+    //             $("#upload_img_tmp").attr("src", this.result);
+    //         }
+    //         reader.readAsDataURL(file);
+    //     }
+    // });
+
+
     new AjaxUpload('#uploadCoverImage', {
         action: '/admin/upload/file',
         name: 'file',
