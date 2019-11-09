@@ -1,6 +1,10 @@
 package com.zdxt.mapper;
 
 
-public interface IndexBannerMapper {
+import com.zdxt.model.IndexBanner;
 
+import java.util.List;
+
+public interface IndexBannerMapper {
+    public List<IndexBanner> findAllBanner();
 }

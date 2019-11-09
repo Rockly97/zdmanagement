@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="header::header-fragment">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</header>
+<body class="hold-transition sidebar-mini">
+<link th:href="@{/admin/plugins/editormd/css/editormd.css}" rel="stylesheet"/>
+<link th:href="@{/admin/plugins/tagsinput/jquery.tagsinput.css}" rel="stylesheet"/>
+<link th:href="@{/admin/plugins/select2/select2.css}" rel="stylesheet"/>
+<div class="wrapper">
+    <!-- 引入页面头header-fragment -->
+    <div th:replace="header::header-nav"></div>
+    <!-- 引入工具栏sidebar-fragment -->
+    <div th:replace="sidebar::sidebar-fragment(${path})"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">发布文章</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- 几个基础的输入框，名称、分类等输入框 -->
+                        <div class="form-group" style="display:flex;">
+                            <img id="upload_img_tmp" height="200" width="320" style="margin: 20px 0">
+                                <div class="input-group">
+                                    <input id="upload_img" class="form-control" readonly type="text">
+                                    <label class="input-group-btn">
+                                        <input id="file" type="file" name="file"
+                                               style="left: -9999px; position: absolute;">
+                                        <span style="background-color:#0f800a;padding: 2px 8px;color: white">添加图片</span>
+                                    </label>
+                                </div>
+                        </div>
+                        <form id="blogForm" onsubmit="return false;">
+                            <div class="form-group" style="display:flex;">
+                                <input type="hidden" id="blogId" name="blogId"
+                                       th:value="${banner!=null and banner.id!=null }?${banner.id}: 0">
+                                <input type="text" class="form-control col-sm-6" id="blogName" name="blogName"
+                                       placeholder="*请输入文章标题(必填)"
+                                       th:value="${banner!=null and banner.blogTitle!=null }?${blog.blogTitle}: ''"
+                                       required="true">
+                                &nbsp;&nbsp;
+                            </div>
+
+
+                                <div class="form-group">
+                                    <!-- 按钮 -->
+                                    &nbsp;<button class="btn btn-info float-right" style="margin-left: 5px;"
+                                                  id="confirmButton">保存文章
+                                </button>&nbsp;
+                                    &nbsp;<button class="btn btn-secondary float-right" style="margin-left: 5px;"
+                                                  id="cancelButton">返回文章列表
+                                </button>&nbsp;
+                                </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- 引入页脚footer-fragment -->
+    <div th:replace="admin/footer::footer-fragment"></div>
+</div>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/admin/plugins/jQueryUI/jquery-ui.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
+<!-- editor.md -->
+<script th:src="@{/admin/plugins/editormd/editormd.min.js}"></script>
+<!-- tagsinput -->
+<script th:src="@{/admin/plugins/tagsinput/jquery.tagsinput.min.js}"></script>
+<!-- Select2 -->
+<script th:src="@{/admin/plugins/select2/select2.full.min.js}"></script>
+<!-- sweetalert -->
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<!-- ajaxupload -->
+<script th:src="@{/admin/plugins/ajaxupload/ajaxupload.js}"></script>
+<script th:src="@{/admin/dist/js/public.js}"></script>
+<script th:src="@{/admin/dist/js/banneredit.js}"></script>
+</body>
+</html>

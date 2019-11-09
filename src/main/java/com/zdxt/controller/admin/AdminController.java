@@ -20,6 +20,7 @@ public class AdminController {
     public String login(HttpServletRequest request,HttpSession session){
         session.setAttribute("loginUser","1111");
         session.setAttribute("loginUserId","111");
+
         return "/login";
     }
 
@@ -125,5 +126,12 @@ public class AdminController {
 //        subject.logout();
         return "admin/login";
     }
+
+    @GetMapping("/blogs")
+    public String blogs(HttpServletRequest request,HttpSession session){
+        request.setAttribute("path","blogs");
+        return "blog";
+    }
+
 
 }
