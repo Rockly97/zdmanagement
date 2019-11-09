@@ -437,7 +437,7 @@
 
     function getConfigFilePath() {
 
-        var configPath = document.getElementsByTagName('script');
+        var configPath = document.getElementsByTagName('div');
 
         return configPath[ configPath.length - 1 ].src;
 

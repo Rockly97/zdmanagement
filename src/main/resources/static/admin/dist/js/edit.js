@@ -1,11 +1,11 @@
 var blogEditor;
 var ue = UE.getEditor('editor');
 // Tags Input
-$('#blogTags').tagsInput({
-    width: '100%',
-    height: '38px',
-    defaultText: '文章标签'
-});
+// $('#blogTags').tagsInput({
+//     width: '100%',
+//     height: '38px',
+//     defaultText: '文章标签'
+// });
 
 //Initialize Select2 Elements
 $('.select2').select2()

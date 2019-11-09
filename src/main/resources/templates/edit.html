@@ -9,9 +9,9 @@
 <link th:href="@{plugins/select2/select2.css}" rel="stylesheet"/>
 <div class="wrapper">
     <!-- 引入页面头header-fragment -->
-    <div th:replace="admin/header::header-nav"></div>
+    <div th:replace="header::header-nav"></div>
     <!-- 引入工具栏sidebar-fragment -->
-    <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
+    <div th:replace="sidebar::sidebar-fragment(${path})"></div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -143,7 +143,7 @@
     </div>
     <!-- /.content-wrapper -->
     <!-- 引入页脚footer-fragment -->
-    <div th:replace="admin/footer::footer-fragment"></div>
+    <div th:replace="footer::footer-fragment"></div>
 </div>
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
