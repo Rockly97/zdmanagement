@@ -18,4 +18,15 @@ public class IndexBannerServiceImpl implements IndexBannerService {
         List<IndexBanner> allBanner = indexBannerMapper.findAllBanner();
         return allBanner;
     }
+
+    @Override
+    public String save(IndexBanner banner) {
+        boolean insert = indexBannerMapper.insert(banner);
+        if(insert){
+            return "success";
+        }else {
+            return  "添加失败";
+        }
+
+    }
 }
