@@ -46,6 +46,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a th:href="@{/admin/edit}" th:class="${path}=='newsedit'?'nav-link active':'nav-link'">
+                        <i class="nav-icon fa fa fa-pencil-square-o"></i>
+                        <p>
+                            发布新闻
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-header">管理模块</li>
                 <li class="nav-item">
                     <a th:href="@{/admin/banner}" th:class="${path}=='banner'?'nav-link active':'nav-link'">
@@ -56,10 +64,10 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a th:href="@{/admin/blogs}" th:class="${path}=='blogs'?'nav-link active':'nav-link'">
+                    <a th:href="@{/admin/blogs}" th:class="${path}=='news'?'nav-link active':'nav-link'">
                         <i class="fa fa-list-alt nav-icon" aria-hidden="true"></i>
                         <p>
-                            博客管理
+                            新闻管理
                         </p>
                     </a>
                 </li>

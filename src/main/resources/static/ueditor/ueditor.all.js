@@ -4302,7 +4302,6 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
      * @param  {Range}   range    range对象
      */
     function updateCollapse(range) {
-        //noinspection JSAnnotator
         range.collapsed =
             range.startContainer && range.endContainer &&
                 range.startContainer === range.endContainer &&

@@ -13,8 +13,8 @@ import java.io.PrintWriter;
  * Created by Rockly on 2019/11/8 15:36.
  */
 @Controller
-@RequestMapping("/ueditor")
-public class TestController {
+@RequestMapping("/admin")
+public class NewsController {
 
     @RequestMapping(value="/config")
     public void config(HttpServletRequest request, HttpServletResponse response) {
@@ -29,7 +29,6 @@ public class TestController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @RequestMapping("/test")
@@ -39,8 +38,8 @@ public class TestController {
     }
     @RequestMapping("/edit")
     public String edit(HttpServletRequest request){
-        request.setAttribute("path","edit");
-        return "edit";
+        request.setAttribute("path","newsedit");
+        return "newsedit";
     }
 
 }

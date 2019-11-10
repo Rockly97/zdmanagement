@@ -1,5 +1,5 @@
 var blogEditor;
-var ue = UE.getEditor('editor');
+ var ue = UE.getEditor('editor');
 // Tags Input
 // $('#blogTags').tagsInput({
 //     width: '100%',
