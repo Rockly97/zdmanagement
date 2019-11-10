@@ -17,7 +17,7 @@ public class ResultGenerator {
 
     public static Result getSuccessResult(){
         Result result = new Result();
-        result.setReultCode(RESULT_CODE_SUCCESS);
+        result.setResultCode(RESULT_CODE_SUCCESS);
         result.setMessage(DEFAULT_SUCCESS_MESSAGE);
         return result;
 
@@ -25,7 +25,7 @@ public class ResultGenerator {
 
     public static Result getSuccessResult(String message){
         Result result = new Result();
-        result.setReultCode(RESULT_CODE_SUCCESS);
+        result.setResultCode(RESULT_CODE_SUCCESS);
         result.setMessage(message);
         return result;
 
@@ -33,7 +33,7 @@ public class ResultGenerator {
 
     public static Result getSuccessResult(Object data){
         Result result = new Result();
-        result.setReultCode(RESULT_CODE_SUCCESS);
+        result.setResultCode(RESULT_CODE_SUCCESS);
         result.setMessage(DEFAULT_SUCCESS_MESSAGE);
         result.setData(data);
         return result;
@@ -42,7 +42,7 @@ public class ResultGenerator {
 
     public static Result getFailResult(String message){
         Result result = new Result();
-        result.setReultCode(RESULT_CODE_SERVER_ERROR);
+        result.setResultCode(RESULT_CODE_SERVER_ERROR);
         if(StringUtils.isEmpty(message)){
             result.setMessage(DEFAULT_FAIL_MESSAGE);
         }else {
@@ -53,7 +53,7 @@ public class ResultGenerator {
 
     public static Result getErrorResult(int code,String message){
         Result result = new Result();
-        result.setReultCode(code);
+        result.setResultCode(code);
         result.setMessage(message);
         return result;
     }

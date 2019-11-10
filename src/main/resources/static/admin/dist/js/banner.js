@@ -4,9 +4,9 @@ $(function () {
         url: '/admin/banner/list',
         datatype: "json",
         colModel: [
-            {label: 'id', name: 'id', index: 'id', width: 50, key: true, hidden: true},
-            {label: '预览图', name: 'img', index: 'img', width: 100, formatter: coverImageFormatter},
-            {label: '描述', name: 'descrip', index: 'descrip', width: 80},
+            {label: 'id', name: 'id', index: 'id', width: 10, key: true, hidden: true},
+            {label: '预览图', name: 'img', index: 'img', width: 100,align:"center", formatter: coverImageFormatter},
+            {label: '描述', name: 'descrip', index: 'descrip', align:"center",width: 100},
         ],
         height: 700,
         rowNum: 10,
@@ -37,7 +37,7 @@ $(function () {
     });
 
     function coverImageFormatter(cellvalue) {
-        return "<img src='" + cellvalue + "' height=\"120\" width=\"160\" alt='coverImage'/>";
+        return "<img src='" +'http://localhost:8888/'+ cellvalue + "' width=\"500px\" alt='coverImage'/>";
     }
 
     function statusFormatter(cellvalue) {
@@ -54,24 +54,6 @@ $(function () {
 /**
  * 搜索功能
  */
-function search() {
-    //标题关键字
-    var keyword = $('#keyword').val();
-    if (!validLength(keyword, 20)) {
-        swal("搜索字段长度过大!", {
-            icon: "error",
-        });
-        return false;
-    }
-    //数据封装
-    var searchData = {keyword: keyword};
-    //传入查询条件参数
-    $("#jqGrid").jqGrid("setGridParam", {postData: searchData});
-    //点击搜索按钮默认都从第一页开始
-    $("#jqGrid").jqGrid("setGridParam", {page: 1});
-    //提交post并刷新表格
-    $("#jqGrid").jqGrid("setGridParam", {url: '/admin/banner/list'}).trigger("reloadGrid");
-}
 
 /**
  * jqGrid重新加载

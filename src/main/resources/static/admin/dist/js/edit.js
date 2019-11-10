@@ -20,7 +20,7 @@ $(function () {
         /**图片上传配置*/
         imageUpload: true,
         imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"], //图片上传格式
-        imageUploadURL: "/admin/blogs/md/uploadfile",
+        imageUploadURL: "/admin/banner/md/uploadfile",
         onload: function (obj) { //上传成功之后的回调
         }
     });
@@ -41,8 +41,8 @@ $(function () {
         },
         onComplete: function (file, r) {
             if (r != null && r.resultCode == 200) {
-                $("#blogCoverImage").attr("src", r.data);
-                $("#blogCoverImage").attr("style", "width: 128px;height: 128px;display:block;");
+                $("#bannerCoverImage").attr("src", r.data);
+                $("#bannerCoverImage").attr("style", "width: 128px;height: 128px;display:block;");
                 return false;
             } else {
                 alert("error");

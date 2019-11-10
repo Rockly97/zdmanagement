@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 public class Result<T> implements Serializable {
 
-    private int reultCode;
+    private int resultCode;
     private String message;
     private T data;
 
@@ -20,7 +20,7 @@ public class Result<T> implements Serializable {
     }
 
     public Result(int reultCode, String message) {
-        this.reultCode = reultCode;
+        this.resultCode = reultCode;
         this.message = message;
     }
 

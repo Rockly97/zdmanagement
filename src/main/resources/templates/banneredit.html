@@ -27,16 +27,21 @@
                         <h3 class="card-title">发布文章</h3>
                     </div>
                     <div class="card-body">
+
                         <!-- 几个基础的输入框，名称、分类等输入框 -->
                         <form id="blogForm" onsubmit="return false;">
                             <div class="form-group">
+                                <p style="background-color: #f2dede;padding: 15px;">上传图片规格:(1368px*462px)</p>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-sm-4">
-                                    <th:block th:if="${null == blog}">
-                                        <img id="blogCoverImage" src="/admin/dist/img/img-upload.png"
+
+                                    <th:block th:if="${null == banner}">
+                                        <img id="bannerCoverImage" src="/admin/dist/img/img-upload.png"
                                              style="height: 64px;width: 64px;">
                                     </th:block>
                                     <th:block th:unless="${null == blog}">
-                                        <img id="blogCoverImage" th:src="${blog.blogCoverImage}"
+                                        <img id="bannerCoverImage" th:src="${banner.img}"
                                              style="width:160px ;height: 120px;display:block;">
                                     </th:block>
                                 </div>
@@ -50,11 +55,11 @@
                                 </div>
                             </div>
                             <div class="form-group" style="display:flex;">
-                                <input type="hidden" id="blo】】】】】】】】gId" name="blogId"
+                                <input type="hidden" id="bannerId" name="bannerId"
                                        th:value="${banner!=null and banner.id!=null }?${banner.id}: 0">
-                                <input type="text" class="form-control col-sm-6" id="blogName" name="blogName"
+                                <input type="text" class="form-control col-sm-6" id="bannerDescrip" name="bannerDescrip"
                                        placeholder="*请输入描述"
-                                       th:value="${banner!=null and banner.blogTitle!=null }?${blog.blogTitle}: ''"
+                                       th:value="${banner!=null and banner.descrip!=null }?${banner.descrip}: ''"
                                        required="true">
                                 &nbsp;&nbsp;
                             </div>
@@ -63,7 +68,7 @@
                             <div class="form-group">
                                 <!-- 按钮 -->
                                 &nbsp;<button class="btn btn-info float-right" style="margin-left: 5px;"
-                                              id="confirmButton">保存Banner图
+                                              id="saveButton">保存Banner图
                             </button>&nbsp;
                                 &nbsp;<button class="btn btn-secondary float-right" style="margin-left: 5px;"
                                               id="cancelButton">返回Banner图列表
