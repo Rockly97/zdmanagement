@@ -29,4 +29,32 @@ public class IndexBannerServiceImpl implements IndexBannerService {
         }
 
     }
+
+    @Override
+    public String updateBanner(IndexBanner banner) {
+        boolean b = indexBannerMapper.updateBanner(banner);
+        if(b){
+            return "success";
+        }else {
+            return  "修改失败";
+        }
+
+    }
+
+    @Override
+    public IndexBanner findBannerByid(String id) {
+        IndexBanner banner = indexBannerMapper.findBannerById(id);
+        if(!banner.getImg().equals("")&&!banner.getImg().isEmpty()){
+            return banner;
+        }else {
+            return null;
+        }
+
+    }
+
+    @Override
+    public Boolean deleteBatch(String[] ids) {
+        return indexBannerMapper.deleteBanner(ids) > 0;
+
+    }
 }

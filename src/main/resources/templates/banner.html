@@ -33,6 +33,12 @@
                         <h3 class="card-title">轮播图管理</h3>
                     </div> <!-- /.card-body -->
                     <div class="card-body">
+                        <div class="grid-btn" style="background-color: #f2dede;padding: 15px;">
+                          上传图片最大数量:5
+                        </div>
+                        <div style="background-color: #f2dede;padding: 15px;" class="grid-btn" th:unless="${#strings.isEmpty(msg)}" th:text="${msg}">
+
+                        </div>
                         <div class="grid-btn">
                             <button class="btn btn-success" onclick="addBlog()"><i
                                     class="fa fa-plus"></i>&nbsp;新增

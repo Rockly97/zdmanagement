@@ -40,8 +40,8 @@
                                         <img id="bannerCoverImage" src="/admin/dist/img/img-upload.png"
                                              style="height: 64px;width: 64px;">
                                     </th:block>
-                                    <th:block th:unless="${null == blog}">
-                                        <img id="bannerCoverImage" th:src="${banner.img}"
+                                    <th:block th:unless="${null == banner}">
+                                        <img id="bannerCoverImage" th:src="'http://localhost:8888/'+${banner.img}"
                                              style="width:160px ;height: 120px;display:block;">
                                     </th:block>
                                 </div>

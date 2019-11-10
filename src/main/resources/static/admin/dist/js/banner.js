@@ -9,15 +9,13 @@ $(function () {
             {label: '描述', name: 'descrip', index: 'descrip', align:"center",width: 100},
         ],
         height: 700,
-        rowNum: 10,
-        rowList: [10, 20, 50],
+
         styleUI: 'Bootstrap',
         loadtext: '信息读取中...',
         rownumbers: false,
         rownumWidth: 20,
         autowidth: true,
         multiselect: true,
-        pager: "#jqGridPager",
         jsonReader: {
             root: "data",
         },
@@ -58,12 +56,7 @@ $(function () {
 /**
  * jqGrid重新加载
  */
-function reload() {
-    var page = $("#jqGrid").jqGrid('getGridParam', 'page');
-    $("#jqGrid").jqGrid('setGridParam', {
-        page: page
-    }).trigger("reloadGrid");
-}
+
 
 function addBlog() {
     window.location.href = "/admin/banner/edit";

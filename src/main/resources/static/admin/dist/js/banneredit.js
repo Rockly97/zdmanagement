@@ -6,10 +6,6 @@ var blogEditor;
 $('.select2').select2()
 
 $(function () {
-
-
-
-
     new AjaxUpload('#uploadCoverImage', {
         action: '/admin/upload/file',
         name: 'file',
@@ -62,21 +58,15 @@ $('#saveButton').click(function () {
     var data = {
         "id": bannerId, "descrip": bannerDescrip, "img": bannerCoverImage
     };
-    // if (blogId > 0) {
-    //     url = '/admin/blogs/update';
-    //     swlMessage = '修改成功';
-    //     data = {
-    //         "blogId": blogId,
-    //         "blogTitle": blogTitle,
-    //         "blogSubUrl": blogSubUrl,
-    //         "blogCategoryId": blogCategoryId,
-    //         "blogTags": blogTags,
-    //         "blogContent": blogContent,
-    //         "blogCoverImage": blogCoverImage,
-    //         "blogStatus": blogStatus,
-    //         "enableComment": enableComment
-    //     };
-    // }
+    if (bannerId != 0) {
+        url = '/admin/banner/update';
+        swlMessage = '修改成功';
+        data = {
+            "id": bannerId,
+            "descrip": bannerDescrip,
+            "img": bannerCoverImage
+        };
+    }
     console.log(data);
     $.ajax({
         type: 'POST',//方法类型
@@ -114,21 +104,7 @@ $('#saveButton').click(function () {
 });
 
 $('#cancelButton').click(function () {
-    var bannerId = $('#bannerId').val();
-    var bannerCoverImage = $('#bannerCoverImage')[0].src;
-    if(bannerId==0){
-        window.location.href = "/admin/banner/deleteImg?img="+bannerCoverImage;
-    }else {
-        window.location.href = "/admin/banner/";
-    }
+        window.location.href = "/admin/banner/deleteImg";
 
 });
 
-/**
- * 随机封面功能
- */
-$('#randomCoverImage').click(function () {
-    var rand = parseInt(Math.random() * 40 + 1);
-    $("#blogCoverImage").attr("src", '/admin/dist/img/rand/' + rand + ".jpg");
-    $("#blogCoverImage").attr("style", "width:160px ;height: 120px;display:block;");
-});
