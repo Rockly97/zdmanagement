@@ -2,6 +2,7 @@ package com.zdxt.common.baidu.ueditor;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.zdxt.common.baidu.ueditor.define.ActionMap;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -143,7 +145,9 @@ public final class ConfigManager {
 				break;
 				
 		}
-		
+
+		//将basePath塞进conf
+		conf.put("basePath",this.jsonConfig.getString("basePath"));
 		conf.put( "savePath", savePath );
 		conf.put( "rootPath", this.rootPath );
 		
@@ -161,7 +165,8 @@ public final class ConfigManager {
 		
 		this.parentPath = file.getParent();
 		
-		String configContent = this.readFile( this.getConfigPath() );
+//		String configContent = this.readFile( this.getConfigPath() );
+		String configContent = this.filter(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("config.json")));
 		
 		try{
 			JSONObject jsonConfig = new JSONObject( configContent );
@@ -173,7 +178,13 @@ public final class ConfigManager {
 	}
 	
 	private String getConfigPath () {
-		return this.parentPath + File.separator + ConfigManager.configFileName;
+		//return this.parentPath + File.separator + ConfigManager.configFileName;
+		try {
+			//获取classpath下的config.json路径
+			return this.getClass().getClassLoader().getResource("config.json").toURI().getPath();
+		} catch (URISyntaxException e) {
+			return null;
+		}
 	}
 
 	private String[] getArray ( String key ) {

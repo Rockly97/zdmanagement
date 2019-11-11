@@ -28,6 +28,7 @@
         </div>
     </body>
     <script>
+        parent.document.getElementById('edui_fixedlayer').style.zIndex = '5000';
         document.getElementById('preview').innerHTML = editor.getContent();
         uParse('#preview',{
             rootPath : '../../',
