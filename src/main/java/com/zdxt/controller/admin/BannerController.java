@@ -151,9 +151,9 @@ public class BannerController {
         //删除之前banner文件夹的图片(根据id查询图片路径)
         IndexBanner banner = indexBannerService.findBannerByid(id);
        String oldimg= banner.getImg();
-//旧图片
+        //旧图片
         String oldimg_jiequ = oldimg.substring(oldimg.lastIndexOf("/")+1);
-//新图片
+        //新图片
         String newimg_jiequ = img.substring(img.lastIndexOf("/")+1);
         System.out.println("12312123"+oldimg_jiequ);
         System.out.println("21212"+newimg_jiequ);
