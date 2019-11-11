@@ -1,20 +1,36 @@
-package com.zdxt.controller.admin;
+package com.zdxt.common;
+
 
 import com.zdxt.common.baidu.ueditor.ActionEnter;
+import com.zdxt.common.util.MyBlogUtils;
+import com.zdxt.common.util.Result;
+import com.zdxt.common.util.ResultGenerator;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
 /**
- * Created by Rockly on 2019/11/8 15:36.
+ * Created by ldb on 2017/4/9.
  */
 @Controller
 @RequestMapping("/ueditor")
-public class TestController {
+public class UEditorController {
+
+    public  static final String TEMP="C:\\upload\\img\\temp\\";
 
     @RequestMapping(value="/config")
     public void config(HttpServletRequest request, HttpServletResponse response) {
@@ -32,15 +48,5 @@ public class TestController {
 
     }
 
-    @RequestMapping("/test")
-    public String test(HttpServletRequest request){
-        request.setAttribute("path","test");
-       return "test";
-    }
-    @RequestMapping("/edit")
-    public String edit(HttpServletRequest request){
-        request.setAttribute("path","edit");
-        return "edit";
-    }
 
 }

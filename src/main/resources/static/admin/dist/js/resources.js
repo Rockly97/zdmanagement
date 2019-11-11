@@ -87,7 +87,7 @@ function reload() {
 }
 
 function addBlog() {
-    window.location.href = "/admin/blogs/edit";
+    window.location.href = "/admin/resources/edit";
 }
 
 function editBlog() {
@@ -95,7 +95,7 @@ function editBlog() {
     if (id == null) {
         return;
     }
-    window.location.href = "/admin/blogs/edit/" + id;
+    window.location.href = "/admin/resources/edit/" + id;
 }
 
 function deleteBlog() {

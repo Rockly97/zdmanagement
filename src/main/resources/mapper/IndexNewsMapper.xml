@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zdxt.mapper.IndexNewsMapper" >
 
+    <insert id="insertNews">
+        insert into index_news
+        (id,content,title,create_time,description,first_picture,kind,flag,author)
+        VALUES (#{indexNews.id},#{indexNews.content},#{indexNews.createTime},#{indexNews.description},#{indexNews.firstPicture},#{indexNews.kind},#{indexNews.flag},#{indexNews.author})
+    </insert>
+
+
 </mapper>

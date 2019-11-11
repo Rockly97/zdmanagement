@@ -48,4 +48,10 @@ public class ResourceController {
         }
         return ResultGenerator.getSuccessResult(resourcePage);
     }
+    @GetMapping({"/resources/edit"})
+    public String bannerEdit(HttpServletRequest request, RedirectAttributes attributes){
+
+        request.setAttribute("path","resources");
+        return "resourcesedit";
+    }
 }
