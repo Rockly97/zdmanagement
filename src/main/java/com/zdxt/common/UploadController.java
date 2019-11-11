@@ -28,6 +28,7 @@ public class UploadController {
     public  static final String BANNER="C:\\upload\\img\\banner\\";
     public  static final String  NEWS="C:\\upload\\img\\news\\";
     public  static final String HEZUO="C:\\upload\\img\\hezuo\\";
+    public  static final String XIANGDUI="C:\\upload\\img\\";
     @PostMapping({"/upload/file"})
     @ResponseBody
     public Result upload(HttpServletRequest httpServletRequest, @RequestParam("file") MultipartFile file) throws URISyntaxException {
@@ -39,19 +40,6 @@ public class UploadController {
         StringBuilder tempName = new StringBuilder();
         tempName.append(sdf.format(new Date())).append(r.nextInt(100)).append(suffixName);
         String newFileName = tempName.toString();
-//        switch (id){
-//            case 1:
-//                lujin=BANNER;
-//                url="/banner/";
-//                break;
-//            case 2:
-//                lujin=NEWS;
-//                url="/news/";
-//                break;
-//            case 3:
-//                lujin=HEZUO;
-//                url="/hezuo/";
-//        }
         File fileDirectory = new File(TEMP);
         //创建文件
         File destFile = new File(TEMP+newFileName);

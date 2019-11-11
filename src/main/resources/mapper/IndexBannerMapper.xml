@@ -13,4 +13,35 @@
         INSERT into index_banner  (id,img,descrip)
         VALUE (#{id},#{img},#{descrip});
     </insert>
+
+    <update id="updateBanner"  parameterType="com.zdxt.model.IndexBanner">
+        update index_banner
+        <set>
+            <if test="indexBanner.img != null" >
+                img = #{indexBanner.img,jdbcType=VARCHAR},
+            </if>
+            <if test="indexBanner.descrip != null" >
+                descrip = #{indexBanner.descrip,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE   id = #{indexBanner.id,jdbcType=VARCHAR}
+    </update>
+    <select id="findBannerById"  parameterType="java.lang.String" resultType="com.zdxt.model.IndexBanner">
+        SELECT * FROM index_banner
+        where id = #{id}
+    </select>
+
+    <delete id="deleteBanner">
+        delete from index_banner where id in
+        <!-- foreach用于迭代数组元素
+             open表示开始符号
+             close表示结束符合
+             separator表示元素间的分隔符
+             item表示迭代的数组，属性值可以任意，但提倡与方法的数组名相同
+             #{ids}表示数组中的每个元素值
+         -->
+        <foreach collection="array" open="(" close=")" separator="," item="ids">
+            #{ids}
+        </foreach>
+    </delete>
 </mapper>
