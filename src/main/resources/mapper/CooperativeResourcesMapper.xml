@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zdxt.mapper.CooperativeResourcesMapper">
-
+    <resultMap id="BaseResultMap" type="com.zdxt.model.CooperativeResources">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="create_Time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_Time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="logo" jdbcType="VARCHAR" property="logo"/>
+        <result column="kind" jdbcType="VARCHAR" property="kind"/>
+        <result column="flag" jdbcType="INTEGER" property="flag"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, url, title, create_Time, update_Time, description,
+        logo, kind, flag
+    </sql>
+    <select id="getTotalResources" parameterType="Map" resultType="int">
+        select count(*) from cooperative_resources
+        <if test='keyword!=null and keyword!= "0"'>
+            where  kind = #{keyword}
+        </if>
+    </select>
+    <select id="findResourcesList" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cooperative_resources
+        <if test='keyword!=null and keyword!= "0"'>
+        where  kind = #{keyword}
+        </if>
+        order by create_Time desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
 </mapper>
