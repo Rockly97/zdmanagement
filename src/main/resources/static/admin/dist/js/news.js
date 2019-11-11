@@ -1,5 +1,6 @@
 $(function () {
 
+
     $("#jqGrid").jqGrid({
         url: '/admin/news/list',
         datatype: "json",
@@ -80,12 +81,12 @@ $(function () {
 function search() {
     //标题关键字
     var keyword = $('#keyword').val();
-    if (!validLength(keyword, 20)) {
-        swal("搜索字段长度过大!", {
-            icon: "error",
-        });
-        return false;
-    }
+    // if (!validLength(keyword, 20)) {
+    //     swal("搜索字段长度过大!", {
+    //         icon: "error",
+    //     });
+    //     return false;
+    // }
     //数据封装
     var searchData = {keyword: keyword};
     //传入查询条件参数

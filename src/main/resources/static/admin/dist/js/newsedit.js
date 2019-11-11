@@ -1,6 +1,9 @@
 $(function () {
     var ue = UE.getEditor('editor');
     $('.select2').select2();
+    ue.ready(function () {
+        ue.setContent($("#content").val());
+    });
 
     /**
      * 上传封面
@@ -73,8 +76,8 @@ $(function () {
             });
             return;
         }
-        if (!validLength(blogTags, 150)) {
-            swal("标签过长", {
+        if (!validLength(description, 400)) {
+            swal("文章描述过长", {
                 icon: "error",
             });
             return;
@@ -154,7 +157,7 @@ $(function () {
                         confirmButtonClass: 'btn btn-success',
                         buttonsStyling: false
                     }).then(function () {
-                        window.location.href = "/admin/blogs";
+                        window.location.href = "/admin/news";
                     })
                 }
                 else {

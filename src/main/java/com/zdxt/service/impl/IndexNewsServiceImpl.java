@@ -30,13 +30,14 @@ public class IndexNewsServiceImpl implements IndexNewsService {
         String imgNews =  indexNews.getFirstPicture();
         imgNews = imgNews.substring(imgNews.lastIndexOf("/")+1);
 
-        File soure = new File(UploadController.NEWS+imgNews);
+        File soure = new File(UploadController.TEMP+imgNews);
 
         File dest = new File(UploadController.NEWS+imgNews);
 
         FileUtils.copyFile(soure,dest);
         String imageUrl = "news/"+imgNews;
-        indexNews.setFirstPicture(imgNews);
+        com.zdxt.common.util.FileUtils.deletTempFile(UploadController.TEMP);
+        indexNews.setFirstPicture(imageUrl);
         boolean falg = indexNewsMapper.insertNews(indexNews);
         if(falg){
             return "success";
@@ -81,6 +82,7 @@ public class IndexNewsServiceImpl implements IndexNewsService {
                 indexNews.setFirstPicture(imageurl);
             }
         }
+        com.zdxt.common.util.FileUtils.deletTempFile(UploadController.TEMP);
         boolean falg = indexNewsMapper.updataNews(indexNews);
         if(falg){
             return "success";

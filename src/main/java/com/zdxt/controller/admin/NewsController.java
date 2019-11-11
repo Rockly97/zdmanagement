@@ -36,6 +36,8 @@ public class NewsController {
     }
 
 
+
+
     @RequestMapping("/news/edit/{newsId}")
     public String editNewsId(HttpServletRequest request,@PathVariable("newsId") String newsId){
         IndexNews indexNews = indexNewsService.getNewsItem(newsId);
@@ -96,6 +98,7 @@ public class NewsController {
         IndexNews indexNews = new IndexNews();
         indexNews.setId(idWorker.nextId()+"");
         indexNews.setAuthor(author);
+        indexNews.setTitle(title);
         indexNews.setContent(content);
         indexNews.setCreateTime(new Date());
         indexNews.setFirstPicture(coverImage);

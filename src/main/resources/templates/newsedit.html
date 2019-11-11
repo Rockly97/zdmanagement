@@ -26,7 +26,7 @@
             <div class="container-fluid">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">发布文章</h3>
+                        <h3 class="card-title">发布新闻</h3>
                     </div>
                     <div class="card-body">
                         <!-- 几个基础的输入框，名称、分类等输入框 -->
@@ -59,8 +59,7 @@
                                 </select>
                             </div>
                             <div class="form-group" id="editor">
-                                <!--<textarea style="display:none;"-->
-                                          <!--th:utext="${indexnews!=null and indexnews.blogContent !=null}?${indexnews.blogContent}: ''"></textarea>-->
+                                <textarea style="display:none;" id="content" th:utext="${indexnews!=null and indexnews.blogContent !=null}?${indexnews.blogContent}: ''"></textarea>
                             </div>
 
                             <div class="form-group">
@@ -112,7 +111,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">文章状态:&nbsp;</label>
-                                    <input name="blogStatus" type="radio" id="publish"
+                                    <input name="flag" type="radio" id="publish"
                                            checked=true
                                            th:checked="${null==indexNews||(null !=indexNews and null !=indexNews.flag and blog.flag==1)} ?true:false"
                                            value="1"/>&nbsp;发布&nbsp;

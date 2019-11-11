@@ -121,7 +121,7 @@ public class BannerController {
         banner.setDescrip(descrip);
 
         String saveBlogResult = indexBannerService.save(banner);
-//        不管成功失败，都删除temp文件
+        //不管成功失败，都删除temp文件
         File fileDirectory = new File(UploadController.TEMP);
         if (!fileDirectory.exists()) {
         }else {

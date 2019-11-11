@@ -16,13 +16,13 @@
         <result property="content" column="content" jdbcType="LONGVARCHAR"/>
     </resultMap>
 
-    <insert id="insertNews">
+    <insert id="insertNews" parameterType="com.zdxt.model.IndexNews">
         insert into index_news
         (id,content,title,create_time,description,first_picture,kind,flag,author)
-        VALUES (#{indexNews.id},#{indexNews.content},#{indexNews.createTime},#{indexNews.description},#{indexNews.firstPicture},#{indexNews.kind},#{indexNews.flag},#{indexNews.author})
+        VALUES (#{id},#{content},#{title},#{createTime},#{description},#{firstPicture},#{kind},#{flag},#{author})
     </insert>
 
-    <update id="updataNews" >
+    <update id="updataNews" parameterType="com.zdxt.model.IndexNews">
         UPDATE index_news
         <set>
             <if test="indexNews.title != null">
@@ -67,7 +67,7 @@
         </if>
     </select>
 
-    <select id="getTotalNews" resultMap="int">
+    <select id="getTotalNews" resultType="int">
         select count(*) FROM index_news
         <if test="kewyord != null">
             WHERE kind = #{kewyord}
