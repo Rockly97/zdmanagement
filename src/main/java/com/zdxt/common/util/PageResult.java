@@ -30,7 +30,7 @@ public class PageResult implements Serializable{
         this.totalCount = totalCount;
         this.pageSize = pageSize;
         this.currPage = currPage;
-        this.totalCount = (int) Math.ceil((double)(totalCount/pageSize));
+        this.totalPage = (totalCount % pageSize) == 0 ? totalCount / pageSize : (totalCount / pageSize) + 1;
     }
 
 

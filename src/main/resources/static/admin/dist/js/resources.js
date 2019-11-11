@@ -1,28 +1,38 @@
 $(function () {
 
     $("#jqGrid").jqGrid({
-        url: '/admin/banner/list',
+        url: '/admin/resources/list',
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', width: 10, key: true, hidden: true},
-            {label: '预览图', name: 'img', index: 'img', width: 100,align:"center", formatter: coverImageFormatter},
-            {label: '描述', name: 'descrip', index: 'descrip', align:"center",width: 100}
+            {label: '标题', name: 'title', index: 'title', width: 80},
+            {label: '预览图', name: 'logo', index: 'logo', width: 100,align:"center", formatter: coverImageFormatter},
+            {label: '描述', name: 'description', index: 'description', align:"center",width: 100},
+            {label: '详情链接', name: 'blogViews', index: 'blogViews', width: 40},
+            {label: '分类', name: 'kind', index: 'kind', width: 40},
+            {label: '添加时间', name: 'createTime', index: 'createTime', width: 80},
+            {label: '状态', name: 'flag', index: 'flag', width: 40, formatter: statusFormatter}
         ],
         height: 700,
-
+        rowNum: 10,
+        rowList: [3, 6, 9],
         styleUI: 'Bootstrap',
         loadtext: '信息读取中...',
         rownumbers: false,
         rownumWidth: 20,
         autowidth: true,
         multiselect: true,
+        pager: "#jqGridPager",
         jsonReader: {
-            root: "data",
+            root: "data.list",
+            page: "data.currPage",
+            total: "data.totalPage",
+            records: "data.totalCount"
         },
         prmNames: {
             page: "page",
             rows: "limit",
-            order: "order",
+            order: "order"
         },
         gridComplete: function () {
             //隐藏grid底部滚动条
@@ -52,14 +62,32 @@ $(function () {
 /**
  * 搜索功能
  */
+function search() {
+    //标题关键字
+    var keyword = $('#keyword').val();
+
+    //数据封装
+    var searchData = {keyword: keyword};
+    //传入查询条件参数
+    $("#jqGrid").jqGrid("setGridParam", {postData: searchData});
+    //点击搜索按钮默认都从第一页开始
+    $("#jqGrid").jqGrid("setGridParam", {page: 1});
+    //提交post并刷新表格
+    $("#jqGrid").jqGrid("setGridParam", {url: '/admin/resources/list'}).trigger("reloadGrid");
+}
 
 /**
  * jqGrid重新加载
  */
-
+function reload() {
+    var page = $("#jqGrid").jqGrid('getGridParam', 'page');
+    $("#jqGrid").jqGrid('setGridParam', {
+        page: page
+    }).trigger("reloadGrid");
+}
 
 function addBlog() {
-    window.location.href = "/admin/banner/edit";
+    window.location.href = "/admin/resources/edit";
 }
 
 function editBlog() {
@@ -67,7 +95,7 @@ function editBlog() {
     if (id == null) {
         return;
     }
-    window.location.href = "/admin/banner/edit/" + id;
+    window.location.href = "/admin/resources/edit/" + id;
 }
 
 function deleteBlog() {
@@ -85,7 +113,7 @@ function deleteBlog() {
             if (flag) {
                 $.ajax({
                     type: "POST",
-                    url: "/admin/banner/delete",
+                    url: "/admin/blogs/delete",
                     contentType: "application/json",
                     data: JSON.stringify(ids),
                     success: function (r) {
