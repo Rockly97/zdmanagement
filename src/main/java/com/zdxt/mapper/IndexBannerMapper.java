@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface IndexBannerMapper {
      List<IndexBanner> findAllBanner();
+    IndexBanner findBannerById(String id);
     boolean insert(IndexBanner indexBanner);
     boolean updateBanner(@Param("indexBanner")IndexBanner indexBanner);
-    IndexBanner findBannerById(String id);
     public int deleteBanner(String[] ids);
 }

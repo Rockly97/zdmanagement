@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </header>
 <body class="hold-transition sidebar-mini">
-<link th:href="@{/admin/plugins/editormd/css/editormd.css}" rel="stylesheet"/>
+
 <link th:href="@{/admin/plugins/tagsinput/jquery.tagsinput.css}" rel="stylesheet"/>
 <link th:href="@{/admin/plugins/select2/select2.css}" rel="stylesheet"/>
 <div class="wrapper">
@@ -32,36 +32,50 @@
                             <div class="form-group" style="display:flex;">
                                 <input type="hidden" id="id" name="id"
                                        th:value="${resources!=null and resources.id!=null }?${resources.id}: 0">
-                                <input type="text" class="form-control col-sm-6" id="newsTitle" name="title"
+                                <input type="text" class="form-control col-sm-6" id="title" name="title"
                                        placeholder="*请输入合作资源名称(必填)"
                                        th:value="${resources!=null and resources.title!=null }?${resources.title}: ''"
                                        required="true">
                                 &nbsp;&nbsp;
-                                <input type="text" class="form-control" id="newsAuthor" name="author"
+                                <input type="text" class="form-control" id="url" name="url"
                                        placeholder="请输入合作资源详细网址"
                                        th:value="${resources!=null and resources.url!=null }?${resources.url}: ''"
                                        style="width: 100%;">
                             </div>
                             <div class="form-group" style="display:flex;">
-                                <input type="text" class="form-control col-sm-6" id="newsDescription"
+                                <input type="text" class="form-control col-sm-6" id="description"
                                        name="description"
                                        th:value="${resources!=null and resources.description!=null }?${resources.description}: ''"
                                        placeholder="请输入合作资源简要描述"> &nbsp;&nbsp;
-                                <select class="form-control select2" style="width: 100%;" id="newsCategoryId"
-                                        data-placeholder="请选择分类...">
-                                    <option value="中德企业协会">中德企业协会</option>
-                                    <option value="中德院校">中德院校</option>
-                                    <option value="中德政府机构">中德政府机构</option>
-                                    <option value="中德研究所">中德研究所</option>
-                                </select>
+                                <th:block th:if="${null == resources}">
+                                    <select class="form-control select2" style="width: 100%;" id="kind"
+                                            data-placeholder="请选择分类...">
+                                        <option value="中德企业协会"   >中德企业协会</option>
+                                        <option value="中德院校" >中德院校</option>
+                                        <option value="中德政府机构">中德政府机构</option>
+                                        <option value="中德研究所" >中德研究所</option>
+                                    </select>
+                                </th:block>
+
+                                <th:block th:unless="${null == resources}">
+                                    <select class="form-control select2" style="width: 100%;" id="kindto"
+                                            data-placeholder="请选择分类...">
+                                        <option value="中德企业协会"  th:selected="${ resources.kind == '中德企业协会' }" >中德企业协会</option>
+                                        <option value="中德院校" th:selected="${ resources.kind == '中德院校' }">中德院校</option>
+                                        <option value="中德政府机构" th:selected="${ resources.kind == '中德政府机构' }">中德政府机构</option>
+                                        <option value="中德研究所" th:selected="${ resources.kind =='中德研究所' }">中德研究所</option>
+
+
+                                    </select>
+                                </th:block>
                             </div>
                             <div class="form-group">
                                 <!-- 按钮 -->
                                 &nbsp;<button class="btn btn-info float-right" style="margin-left: 5px;"
-                                              id="confirmButton">保存文章
+                                              id="confirmButton">保存合作资源
                             </button>&nbsp;
                                 &nbsp;<button class="btn btn-secondary float-right" style="margin-left: 5px;"
-                                              id="cancelButton">返回文章列表
+                                              id="cancelButton">返回合作资源列表
                             </button>&nbsp;
                             </div>
                         </form>
@@ -84,12 +98,12 @@
                             <form onsubmit="return false;">
                                 <div class="form-group">
                                     <div class="col-sm-4">
-                                        <th:block th:if="${null == blog}">
+                                        <th:block th:if="${null == resources}">
                                             <img id="blogCoverImage" th:src="@{/admin/dist/img/img-upload.png}"
                                                  style="height: 64px;width: 64px;">
                                         </th:block>
-                                        <th:block th:unless="${null == blog}">
-                                            <img id="blogCoverImage" th:src="${blog.blogCoverImage}"
+                                        <th:block th:unless="${null == resources}">
+                                            <img id="blogCoverImage"th:src="'http://localhost:8888/'+${resources.logo}"
                                                  style="width:160px ;height: 120px;display:block;">
                                         </th:block>
                                     </div>
@@ -104,12 +118,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">文章状态:&nbsp;</label>
-                                    <input name="blogStatus" type="radio" id="publish"
+                                    <input name="flag" type="radio" id="publish"
                                            checked=true
-                                           th:checked="${null==indexNews||(null !=indexNews and null !=indexNews.flag and blog.flag==1)} ?true:false"
+                                           th:checked="${null==resources||(null !=resources and null !=resources.flag and resources.flag==1)} ?true:false"
                                            value="1"/>&nbsp;发布&nbsp;
-                                    <input name="blogStatus" type="radio" id="draft" value="0"
-                                           th:checked="${null !=indexNews and null !=indexNews.flag and indexNews.flag==0} ?true:false"/>&nbsp;草稿&nbsp;
+                                    <input name="flag" type="radio" id="draft" value="0"
+                                           th:checked="${null !=resources and null !=resources.flag and resources.flag==0} ?true:false"/>&nbsp;草稿&nbsp;
                                 </div>
                             </form>
                         </div>
@@ -135,8 +149,7 @@
 <script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- AdminLTE App -->
 <script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
-<!-- editor.md -->
-<script th:src="@{/admin/plugins/editormd/editormd.min.js}"></script>
+
 <!-- tagsinput -->
 <script th:src="@{/admin/plugins/tagsinput/jquery.tagsinput.min.js}"></script>
 <!-- Select2 -->

@@ -6,8 +6,9 @@ import java.util.List;
 
 public interface IndexBannerService {
     public List<IndexBanner> findAll();
-    public String save (IndexBanner banner);
+
     public String updateBanner (IndexBanner banner);
     public IndexBanner findBannerByid (String id);
+      public String save (IndexBanner banner);
     Boolean deleteBatch(String[] ids);
 }
