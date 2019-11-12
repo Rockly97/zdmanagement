@@ -4,7 +4,7 @@
 
     <resultMap id="NewsBaseMap" type="com.zdxt.model.IndexNews">
         <id property="id" column="id" jdbcType="VARCHAR"/>
-        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR" />
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
@@ -18,49 +18,49 @@
 
     <insert id="insertNews" parameterType="com.zdxt.model.IndexNews">
         insert into index_news
-        (id,content,title,create_time,description,first_picture,kind,flag,author)
-        VALUES (#{id},#{content},#{title},#{createTime},#{description},#{firstPicture},#{kind},#{flag},#{author})
+        (id,content,title,create_time,description,first_picture,kind,flag,author,level)
+        VALUES (#{id},#{content},#{title},#{createTime},#{description},#{firstPicture},#{kind},#{flag},#{author},#{level})
     </insert>
 
     <update id="updataNews" parameterType="com.zdxt.model.IndexNews">
         UPDATE index_news
         <set>
-            <if test="indexNews.title != null">
-                title = #{indexNews.title,jdbcType=VARCHAR},
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
             </if>
-            <if test="indexNews.updateTime != null">
-                updateTime = #{indexNews.updateTime,jdbcType=VARCHAR},
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
             </if>
-            <if test="indexNews.description != null">
-                description = #{indexNews.description,jdbcType=VARCHAR},
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
             </if>
-            <if test="indexNews.firstPicture != null">
-                first_picture = #{indexNews.firstPicture,jdbcType=VARCHAR},
+            <if test="firstPicture != null">
+                first_picture = #{firstPicture,jdbcType=VARCHAR},
             </if>
-            <if test="indexNews.kind != null">
-                kind = #{indexNews.kind,jdbcType=VARCHAR},
+            <if test="kind != null">
+                kind = #{kind,jdbcType=VARCHAR},
             </if>
-            <if test="indexNews.flag != null">
-                flag = #{indexNews.flag,jdbcType=INTEGER},
+            <if test="flag != null">
+                flag = #{flag,jdbcType=INTEGER},
             </if>
-            <if test="indexNews.level != null">
-                level = #{indexNews.level,jdbcType=VARCHAR},
+            <if test="level != null">
+                level = #{level,jdbcType=INTEGER},
             </if>
-            <if test="indexNews.author != null">
-                author = #{indexNews.author,jdbcType=TINYINT},
+            <if test="author != null">
+                author = #{author,jdbcType=VARCHAR},
             </if>
-            <if test="indexNews.content != null">
-                content = #{indexNews.content,jdbcType=TINYINT},
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
             </if>
         </set>
-        where id = #{indexNews.id,dbcType=INTEGER}
+        where id = #{id,jdbcType=VARCHAR}
     </update>
 
 
     <select id="findNewsList"  parameterType="Map" resultMap="NewsBaseMap">
         select * FROM index_news
-        <if test="kewyord != null">
-            WHERE kind = #{kewyord}
+        <if test="keyword != null">
+            WHERE kind = #{keyword}
         </if>
         <if test="start!=null and limit!=null">
             limit #{start},#{limit}
@@ -69,8 +69,8 @@
 
     <select id="getTotalNews" resultType="int">
         select count(*) FROM index_news
-        <if test="kewyord != null">
-            WHERE kind = #{kewyord}
+        <if test="keyword != null">
+            WHERE kind = #{keyword}
         </if>
     </select>
 
@@ -81,8 +81,8 @@
         </foreach>
     </delete>
 
-    <select id="findNewsImg" resultType="java.lang.String">
-        select first_picture from index_news where id = #{id}
+    <select id="findNewsImg" resultMap="NewsBaseMap">
+        select * from index_news where id = #{id}
     </select>
 
 
@@ -90,5 +90,15 @@
         select * FROM index_news where id = #{newsId}
     </select>
 
+    <select id="fingCountBigImage" parameterType="int" resultType="int">
+        select count(*) from index_news where level = #{level}
+    </select>
+
+    <select id="getdelectImageAdd" resultType="java.lang.String">
+        select first_picture from index_news where in
+        <foreach collection="array" open="(" close=")" separator="," item="ids">
+            #{ids}
+        </foreach>
+    </select>
 
 </mapper>

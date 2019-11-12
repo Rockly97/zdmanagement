@@ -1,7 +1,9 @@
 $(function () {
     var ue = UE.getEditor('editor');
     $('.select2').select2();
+    console.log($("#content").text());
     ue.ready(function () {
+
         ue.setContent($("#content").val());
     });
 
@@ -108,6 +110,7 @@ $(function () {
         var content = ue.getContent();
         var coverImage = $('#blogCoverImage')[0].src;
         var flag = $("input[name='flag']:checked").val();
+        var level = $("input[name='level']:checked").val();
         if (isNull(coverImage) || coverImage.indexOf('img-upload') != -1) {
             swal("封面图片不能为空", {
                 icon: "error",
@@ -123,7 +126,8 @@ $(function () {
             "author": author,
             "content": content,
             "coverImage": coverImage,
-            "flag": flag
+            "flag": flag,
+            "level":level
         };
         if (id > 0) {
             url = '/admin/news/update';
@@ -136,7 +140,8 @@ $(function () {
                 "author": author,
                 "content": content,
                 "coverImage": coverImage,
-                "flag": flag
+                "flag": flag,
+                "level":level
             };
         }
         console.log(data);
@@ -180,7 +185,7 @@ $(function () {
      * 调转到新闻列表
      */
     $('#cancelButton').click(function () {
-        window.location.href = "/admin/news/list";
+        window.location.href = "/admin/news";
     });
 
 });

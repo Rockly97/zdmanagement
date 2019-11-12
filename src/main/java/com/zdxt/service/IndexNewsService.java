@@ -18,7 +18,7 @@ public interface IndexNewsService {
 
     PageResult getNewsPage(PageQueryUtil queryUtil);
 
-    boolean deleteBatch(Integer[] ids);
+    boolean deleteBatch(String[] ids);
 
     IndexNews getNewsItem(String newsId);
 }

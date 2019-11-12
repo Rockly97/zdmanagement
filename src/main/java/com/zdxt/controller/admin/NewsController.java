@@ -1,5 +1,6 @@
 package com.zdxt.controller.admin;
 
+import com.zdxt.common.UploadController;
 import com.zdxt.common.baidu.ueditor.ActionEnter;
 import com.zdxt.common.util.*;
 import com.zdxt.model.IndexNews;
@@ -28,6 +29,15 @@ public class NewsController {
 
     @Autowired
     private IndexNewsService indexNewsService;
+
+
+
+    @RequestMapping("/news")
+    public String news (HttpServletRequest request){
+        FileUtils.deletTempFile(UploadController.TEMP);
+        request.setAttribute("path","news");
+        return "news";
+    }
 
     @RequestMapping("/news/edit")
     public String edit(HttpServletRequest request){
@@ -64,7 +74,8 @@ public class NewsController {
                        @RequestParam("author") String author,
                        @RequestParam("content") String content,
                        @RequestParam("coverImage") String coverImage,
-                       @RequestParam("flag")Integer  flag){
+                       @RequestParam("flag")Integer  flag,
+                       @RequestParam("level")Integer level){
 
         if(StringUtils.isEmpty(title)){
             return ResultGenerator.getFailResult("请输入文章标题");
@@ -105,6 +116,7 @@ public class NewsController {
         indexNews.setDescription(description);
         indexNews.setFlag(flag);
         indexNews.setKind(kind);
+        indexNews.setLevel(level);
 
         String save = null;
         try {
@@ -114,10 +126,14 @@ public class NewsController {
         }
         if("success".equals(save)){
             return ResultGenerator.getSuccessResult("添加成功");
-        }else {
-            return  ResultGenerator.getFailResult("添加失败");
         }
-
+        if("bigmax".equals(save)){
+            return ResultGenerator.getFailResult("大图文章置顶已满，请重新选择！");
+        }
+        if("smlamax".equals(save)){
+            return ResultGenerator.getFailResult("小图文章置顶已满，请重新选择！");
+        }
+        return  ResultGenerator.getFailResult("添加失败");
     }
 
 
@@ -142,7 +158,8 @@ public class NewsController {
                          @RequestParam("author") String author,
                          @RequestParam("content") String content,
                          @RequestParam("coverImage") String coverImage,
-                         @RequestParam("flag")Integer  flag){
+                         @RequestParam("flag")Integer  flag,
+                         @RequestParam("level")Integer  level){
         if(StringUtils.isEmpty(title)){
             return ResultGenerator.getFailResult("请输入文章标题");
         }
@@ -173,6 +190,7 @@ public class NewsController {
         //拿到实例类  将实例类存储到数据库中  放回结果字符串 success就代表成功 否则失败
         IndexNews indexNews = new IndexNews();
         indexNews.setId(id);
+        indexNews.setTitle(title);
         indexNews.setAuthor(author);
         indexNews.setContent(content);
         indexNews.setUpdateTime(new Date());
@@ -180,6 +198,7 @@ public class NewsController {
         indexNews.setDescription(description);
         indexNews.setFlag(flag);
         indexNews.setKind(kind);
+        indexNews.setLevel(level);
 
 
         String save = null;
@@ -189,10 +208,15 @@ public class NewsController {
             e.printStackTrace();
         }
         if("success".equals(save)){
-            return ResultGenerator.getSuccessResult("更新成功");
-        }else {
-            return  ResultGenerator.getFailResult("更新失败");
+            return ResultGenerator.getSuccessResult("修改成功");
         }
+        if("bigmax".equals(save)){
+            return ResultGenerator.getFailResult("大图文章置顶已满，请重新选择！");
+        }
+        if("smlamax".equals(save)){
+            return ResultGenerator.getFailResult("小图文章置顶已满，请重新选择！");
+        }
+        return  ResultGenerator.getFailResult("修改失败");
     }
 
 
@@ -221,7 +245,9 @@ public class NewsController {
      * @param ids
      * @return
      */
-    public Result delete(@RequestBody Integer[] ids){
+    @RequestMapping("/news/delete")
+    @ResponseBody
+    public Result delete(@RequestBody String[] ids){
         if(ids.length < 1){
             return ResultGenerator.getFailResult("参数异常");
         }

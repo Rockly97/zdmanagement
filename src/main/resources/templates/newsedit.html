@@ -51,15 +51,15 @@
                                        placeholder="请输入文章简要描述"> &nbsp;&nbsp;
                                 <select class="form-control select2" style="width: 100%;" id="newsCategoryId"
                                         data-placeholder="请选择分类...">
-                                    <option value="科技合作" selected="selected">科技合作</option>
-                                    <option value="教育合作" selected="selected">教育合作</option>
-                                    <option value="企业合作" selected="selected">企业合作</option>
-                                    <option value="语言中心" selected="selected">语言中心</option>
-                                    <option value="合作资源" selected="selected">合作资源</option>
+                                    <option value="科技合作"  th:selected="${indexNews!=null and indexNews.kind == '科技合作' }" >科技合作</option>
+                                    <option value="教育合作" th:selected="${indexNews!=null and indexNews.kind == '教育合作' }">教育合作</option>
+                                    <option value="企业合作" th:selected="${indexNews!=null and indexNews.kind == '企业合作' }">企业合作</option>
+                                    <option value="语言中心" th:selected="${indexNews!=null and indexNews.kind == '语言中心' }">语言中心</option>
+                                    <option value="合作资源" th:selected="${indexNews!=null and indexNews.kind == '合作资源' }">合作资源</option>
                                 </select>
                             </div>
                             <div class="form-group" id="editor">
-                                <textarea style="display:none;" id="content" th:utext="${indexnews!=null and indexnews.blogContent !=null}?${indexnews.blogContent}: ''"></textarea>
+                                <textarea style="display:none;" id="content" th:utext="${indexNews!=null and indexNews.content !=null}?${indexNews.content}: ''"></textarea>
                             </div>
 
                             <div class="form-group">
@@ -91,12 +91,12 @@
                             <form onsubmit="return false;">
                                 <div class="form-group">
                                     <div class="col-sm-4">
-                                        <th:block th:if="${null == blog}">
+                                        <th:block th:if="${null == indexNews}">
                                             <img id="blogCoverImage" th:src="@{/admin/dist/img/img-upload.png}"
                                                  style="height: 64px;width: 64px;">
                                         </th:block>
-                                        <th:block th:unless="${null == blog}">
-                                            <img id="blogCoverImage" th:src="${blog.blogCoverImage}"
+                                        <th:block th:unless="${null == indexNews}">
+                                            <img id="blogCoverImage" th:src="${indexNews.firstPicture}"
                                                  style="width:160px ;height: 120px;display:block;">
                                         </th:block>
                                     </div>
@@ -111,12 +111,21 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">文章状态:&nbsp;</label>
-                                    <input name="flag" type="radio" id="publish"
-                                           checked=true
-                                           th:checked="${null==indexNews||(null !=indexNews and null !=indexNews.flag and blog.flag==1)} ?true:false"
+                                    <input name="flag" type="radio" id="publish" checked="true"
+                                           th:checked="${null==indexNews||(null !=indexNews and null !=indexNews.flag and indexNews.flag==1)} ?true:false"
                                            value="1"/>&nbsp;发布&nbsp;
-                                    <input name="blogStatus" type="radio" id="draft" value="0"
+                                    <input name="flag" type="radio" id="draft" value="0"
                                            th:checked="${null !=indexNews and null !=indexNews.flag and indexNews.flag==0} ?true:false"/>&nbsp;草稿&nbsp;
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">置顶状态:&nbsp;</label>
+                                    <input name="level" type="radio" id="bigImage" checked="true" value="0"
+                                           th:checked="${null !=indexNews and null !=indexNews.level and indexNews.level==0} ?true:false"/>&nbsp;无置顶&nbsp;
+                                    <input name="level" type="radio" id="salmImage"
+                                           th:checked="${null==indexNews||(null !=indexNews and null !=indexNews.level and indexNews.level==1)} ?true:false"
+                                           value="1"/>&nbsp;大图显示&nbsp;
+                                    <input name="level" type="radio" id="noImage" value="2"
+                                           th:checked="${null !=indexNews and null !=indexNews.level and indexNews.level==2} ?true:false"/>&nbsp;小图显示&nbsp;
                                 </div>
                             </form>
                         </div>

@@ -8,12 +8,12 @@ $(function () {
             {label: 'id', name: 'id', index: 'id', width: 50, key: true, hidden: true},
             {label: '标题', name: 'title', index: 'title', width: 80},
             {label: '封面图', name: 'firstPicture', index: 'firstPicture', width: 100, formatter: coverImageFormatter},
-            {label: '文章描述', name: 'description', index: 'description', width: 40},
-            {label: '发布状态', name: 'flag', index: 'flag', width: 40, formatter: statusFormatter},
+            {label: '文章描述', name: 'description', index: 'description', width: 80},
+            {label: '发布状态', name: 'flag', index: 'flag', width: 30, formatter: statusFormatter},
             {label: '新闻分类', name: 'kind', index: 'kind', width: 40},
-            {label: '置顶状态', name: 'level', index: 'level', width: 40, formatter: levelstatusFormatter},
-            {label: '新闻作者', name: 'author', index: 'author', width: 40},
-            {label: '创建时间', name: 'createTime', index: 'createTime', width: 80}
+            {label: '置顶状态', name: 'level', index: 'level', width: 30, formatter: levelstatusFormatter},
+            {label: '新闻作者', name: 'author', index: 'author', width: 30},
+            {label: '创建时间', name: 'createTime', index: 'createTime', width: 50}
         ],
         height: 700,
         rowNum: 10,
@@ -47,7 +47,7 @@ $(function () {
     });
 
     function coverImageFormatter(cellvalue) {
-        return "<img src='" + cellvalue + "' height=\"120\" width=\"160\" alt='coverImage'/>";
+        return "<img src='http://localhost:8888/" + cellvalue + "' height=\"120\" width=\"160\" alt='coverImage'/>";
     }
 
     function statusFormatter(cellvalue) {
