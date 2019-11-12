@@ -3,6 +3,16 @@ package com.zdxt.common.util;
 import java.io.File;
 
 public class FileUtils {
+
+
+    public static void deletTempFile(String path){
+        File fileDirectory = new File(path);
+        if(fileDirectory.exists()){
+            getDelete(fileDirectory);
+            fileDirectory.delete();
+        }
+    }
+
     public static void getDelete(File file) {
         //生成File[]数组   listFiles()方法获取当前目录里的文件夹  文件
         File[] files = file.listFiles();

@@ -2,11 +2,93 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zdxt.mapper.IndexNewsMapper" >
 
-    <insert id="insertNews">
+    <resultMap id="NewsBaseMap" type="com.zdxt.model.IndexNews">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="firstPicture" column="first_picture" jdbcType="VARCHAR"/>
+        <result property="kind" column="kind" jdbcType="VARCHAR"/>
+        <result property="flag" column="flag" jdbcType="TINYINT"/>
+        <result property="level" column="level" jdbcType="TINYINT"/>
+        <result property="author" column="author" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+
+    <insert id="insertNews" parameterType="com.zdxt.model.IndexNews">
         insert into index_news
         (id,content,title,create_time,description,first_picture,kind,flag,author)
-        VALUES (#{indexNews.id},#{indexNews.content},#{indexNews.createTime},#{indexNews.description},#{indexNews.firstPicture},#{indexNews.kind},#{indexNews.flag},#{indexNews.author})
+        VALUES (#{id},#{content},#{title},#{createTime},#{description},#{firstPicture},#{kind},#{flag},#{author})
     </insert>
+
+    <update id="updataNews" parameterType="com.zdxt.model.IndexNews">
+        UPDATE index_news
+        <set>
+            <if test="indexNews.title != null">
+                title = #{indexNews.title,jdbcType=VARCHAR},
+            </if>
+            <if test="indexNews.updateTime != null">
+                updateTime = #{indexNews.updateTime,jdbcType=VARCHAR},
+            </if>
+            <if test="indexNews.description != null">
+                description = #{indexNews.description,jdbcType=VARCHAR},
+            </if>
+            <if test="indexNews.firstPicture != null">
+                first_picture = #{indexNews.firstPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="indexNews.kind != null">
+                kind = #{indexNews.kind,jdbcType=VARCHAR},
+            </if>
+            <if test="indexNews.flag != null">
+                flag = #{indexNews.flag,jdbcType=INTEGER},
+            </if>
+            <if test="indexNews.level != null">
+                level = #{indexNews.level,jdbcType=VARCHAR},
+            </if>
+            <if test="indexNews.author != null">
+                author = #{indexNews.author,jdbcType=TINYINT},
+            </if>
+            <if test="indexNews.content != null">
+                content = #{indexNews.content,jdbcType=TINYINT},
+            </if>
+        </set>
+        where id = #{indexNews.id,dbcType=INTEGER}
+    </update>
+
+
+    <select id="findNewsList"  parameterType="Map" resultMap="NewsBaseMap">
+        select * FROM index_news
+        <if test="kewyord != null">
+            WHERE kind = #{kewyord}
+        </if>
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <select id="getTotalNews" resultType="int">
+        select count(*) FROM index_news
+        <if test="kewyord != null">
+            WHERE kind = #{kewyord}
+        </if>
+    </select>
+
+    <delete id="deleteBatchNews">
+        delete from index_news where id in
+        <foreach collection="array" open="(" close=")" separator="," item="ids">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <select id="findNewsImg" resultType="java.lang.String">
+        select first_picture from index_news where id = #{id}
+    </select>
+
+
+    <select id="findByIdNews" resultMap="NewsBaseMap">
+        select * FROM index_news where id = #{newsId}
+    </select>
 
 
 </mapper>
