@@ -65,7 +65,7 @@ public class IndexBannerServiceImpl implements IndexBannerService {
         if(!oldimg.equals("")&&!oldimg.isEmpty()){
             if(!oldimg_jiequ.equals(newimg_jiequ)){
 //            根据地址删除原来图片
-                File file=new File(UploadController.XIANGDUI+banner.getImg());
+                File file=new File(UploadController.XIANGDUI+oldimg);
                 if (!file.exists()) {
                     System.out.println("删除文件失败:"  + "不存在！");
 

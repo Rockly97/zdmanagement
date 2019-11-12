@@ -59,8 +59,11 @@
 
     <select id="findNewsList"  parameterType="Map" resultMap="NewsBaseMap">
         select * FROM index_news
-        <if test="keyword != null">
+        <if test="keyword != '0'.toString() and keyword != '1'.toString()">
             WHERE kind = #{keyword}
+        </if>
+        <if test="keyword != '1'.toString()">
+            WHERE level > 0
         </if>
         <if test="start!=null and limit!=null">
             limit #{start},#{limit}
@@ -69,8 +72,11 @@
 
     <select id="getTotalNews" resultType="int">
         select count(*) FROM index_news
-        <if test="keyword != null">
+        <if test="keyword != '0'.toString() and keyword != '1'.toString()">
             WHERE kind = #{keyword}
+        </if>
+        <if test="keyword != '1'.toString()">
+            WHERE level > 0
         </if>
     </select>
 
@@ -95,7 +101,7 @@
     </select>
 
     <select id="getdelectImageAdd" resultType="java.lang.String">
-        select first_picture from index_news where in
+        select first_picture from index_news where id in
         <foreach collection="array" open="(" close=")" separator="," item="ids">
             #{ids}
         </foreach>

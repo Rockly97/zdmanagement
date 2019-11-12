@@ -132,13 +132,9 @@ public class IndexNewsServiceImpl implements IndexNewsService {
 
     @Override
     public boolean deleteBatch(String[] ids) {
-        boolean flag = indexNewsMapper.deleteBatchNews(ids);
-
-        if(flag){
-            List<String> imgaddlist = indexNewsMapper.getdelectImageAdd(ids);
-
+        List<String> imgaddlist = indexNewsMapper.getdelectImageAdd(ids);
             for (String imgadd: imgaddlist) {
-                File file = new File(UploadController.NEWS + imgadd);
+                File file = new File(UploadController.XIANGDUI + imgadd);
                 if (!file.exists()) {
                     System.out.println("删除文件失败:"  + "不存在！");
                 } else {
@@ -147,8 +143,7 @@ public class IndexNewsServiceImpl implements IndexNewsService {
                     }
                 }
             }
-        }
-
+            boolean flag = indexNewsMapper.deleteBatchNews(ids);
         return flag;
     }
 

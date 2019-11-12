@@ -1,13 +1,12 @@
 package com.zdxt.controller.admin;
 
 import com.zdxt.common.UploadController;
-import com.zdxt.common.util.*;
+import com.zdxt.common.util.FileUtils;
+import com.zdxt.common.util.IdWorker;
+import com.zdxt.common.util.Result;
+import com.zdxt.common.util.ResultGenerator;
 import com.zdxt.model.IndexBanner;
 import com.zdxt.service.IndexBannerService;
-
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -17,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin
@@ -140,57 +138,10 @@ public class BannerController {
         }
         IndexBanner newbanner = new IndexBanner();
         newbanner.setDescrip(descrip);
-        //删除之前banner文件夹的图片(根据id查询图片路径)
-        IndexBanner banner = indexBannerService.findBannerByid(id);
-       String oldimg= banner.getImg();
-        //旧图片
-        String oldimg_jiequ = oldimg.substring(oldimg.lastIndexOf("/")+1);
-        //新图片
-        String newimg_jiequ = img.substring(img.lastIndexOf("/")+1);
-        System.out.println("12312123"+oldimg_jiequ);
-        System.out.println("21212"+newimg_jiequ);
-
-        if(!oldimg.equals("")&&!oldimg.isEmpty()){
-            if(!oldimg_jiequ.equals(newimg_jiequ)){
-//            根据地址删除原来图片
-                File file=new File(UploadController.XIANGDUI+banner.getImg());
-                if (!file.exists()) {
-                    System.out.println("删除文件失败:"  + "不存在！");
-
-                } else {
-                    if (file.isFile()){
-                        file.delete();
-                    }
-                }
-//               不同就代表图片在temp里面，所以需要复制
-                if(!img.equals("")){
-                    //        获得图片名称
-                    String banner1 = img.substring(img.lastIndexOf("/")+1);
-                    System.out.println(banner1);
-//        找到要复制的目标图片
-                    File filere=new File(UploadController.TEMP+banner1);
-//        复制的位置
-                    File dest=new File(UploadController.BANNER+banner1);
-                    try {
-                        org.apache.commons.io.FileUtils.copyFile(filere,dest);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    String  imageurl="banner/"+banner1;
-                    newbanner.setImg(imageurl);
-                }
-
-            }
-        }
-
-
-
         if(!id.equals("")){
             newbanner.setId(id);
         }
         newbanner.setImg(img);
-        newbanner.setDescrip(descrip);
-
         String updateBlogResult = indexBannerService.updateBanner(newbanner);
 //        不管成功还是失败，都先删除temp文件夹
         File fileDirectory = new File(UploadController.TEMP);
@@ -216,8 +167,6 @@ public class BannerController {
         System.out.println(ids.toString());
 
         if (indexBannerService.deleteBatch(ids)) {
-
-
             return ResultGenerator.getSuccessResult();
         } else {
             return ResultGenerator.getFailResult("删除失败");

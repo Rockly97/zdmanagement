@@ -1,5 +1,7 @@
 package com.zdxt.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -26,6 +28,7 @@ public class GermanyNews implements Serializable {
      *
      * @mbggenerated Thu Nov 07 19:52:19 CST 2019
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private Date createTime;
 
     /**
@@ -34,6 +37,7 @@ public class GermanyNews implements Serializable {
      *
      * @mbggenerated Thu Nov 07 19:52:19 CST 2019
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private Date updateTime;
 
     /**
