@@ -1,5 +1,5 @@
 var blogEditor;
- var ue = UE.getEditor('editor');
+
 // Tags Input
 // $('#blogTags').tagsInput({
 //     width: '100%',
@@ -11,20 +11,6 @@ var blogEditor;
 $('.select2').select2()
 
 $(function () {
-    blogEditor = editormd("blog-editormd", {
-        width: "100%",
-        height: 640,
-        syncScrolling: "single",
-        path: "/admin/plugins/editormd/lib/",
-        toolbarModes: 'full',
-        /**图片上传配置*/
-        imageUpload: true,
-        imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"], //图片上传格式
-        imageUploadURL: "/admin/banner/md/uploadfile",
-        onload: function (obj) { //上传成功之后的回调
-        }
-    });
-
     /**
      * 上传封面
      */
@@ -40,9 +26,10 @@ $(function () {
             }
         },
         onComplete: function (file, r) {
-            if (r != null && r.resultCode == 200) {
-                $("#bannerCoverImage").attr("src", r.data);
-                $("#bannerCoverImage").attr("style", "width: 128px;height: 128px;display:block;");
+            console.log(r);
+            if (r != null && r.resultCode === 200) {
+                $("#blogCoverImage").attr("src", r.data);
+                $("#blogCoverImage").attr("style", "max-width: 400px;display:block;");
                 return false;
             } else {
                 alert("error");
@@ -55,13 +42,18 @@ $(function () {
  * 校验数据
  */
 $('#confirmButton').click(function () {
+    var id = $('#id').val();
     var title = $('#title').val();
     var description = $('#description').val();
-    var kind = $('#kind').val();
-    var author = $('#author').val();
-    var content = ue.getContent();
+    var kind = null;
+    var url = $('#url').val();
+    if (id != 0) {
+         kind=$('#kindto').val();
+    }else {
+         kind = $('#kind').val();
+    }
     if (isNull(title)) {
-        swal("请输入文章标题", {
+        swal("请输入合作资源名称", {
             icon: "error",
         });
         return;
@@ -72,7 +64,13 @@ $('#confirmButton').click(function () {
         });
         return;
     }
-    if (!validLength(description, 150)) {
+    if (!validLength(url, 150)) {
+        swal("网址过长 字数限制在150", {
+            icon: "error",
+        });
+        return;
+    }
+    if (!validLength(description, 450)) {
         swal("描述字数过多", {
             icon: "error",
         });
@@ -84,30 +82,17 @@ $('#confirmButton').click(function () {
         });
         return;
     }
-    if (isNull(author)) {
-        swal("请输入作者", {
-            icon: "error",
-        });
-        return;
+    if(!isNull(url)){
+        var b = isURL(url);
+        if(!b) {
+            swal("请输入正确的网址", {
+                icon: "error",
+            });
+            return;
+        }
     }
-    if (!validLength(blogTags, 150)) {
-        swal("标签过长", {
-            icon: "error",
-        });
-        return;
-    }
-    if (isNull(content)) {
-        swal("请输入文章内容", {
-            icon: "error",
-        });
-        return;
-    }
-    if (!validLength(content, 100000)) {
-        swal("文章内容过长", {
-            icon: "error",
-        });
-        return;
-    }
+
+
     $('#articleModal').modal('show');
 });
 
@@ -115,12 +100,12 @@ $('#confirmButton').click(function () {
  * 保存按钮
  */
 $('#saveButton').click(function () {
+    var data=null;
+    var url = null;
     var id = $('#id').val();
     var title = $('#title').val();
     var description = $('#description').val();
-    var kind = $('#kind').val();
-    var author = $('#author').val();
-    var content = ue.getContent();
+    var lujin = $('#url').val();
     var coverImage = $('#blogCoverImage')[0].src;
     var flag = $("input[name='flag']:checked").val();
     if (isNull(coverImage) || coverImage.indexOf('img-upload') != -1) {
@@ -129,27 +114,28 @@ $('#saveButton').click(function () {
         });
         return;
     }
-    var url = '/admin/blogs/save';
+
     var swlMessage = '保存成功';
-    var data = {
-        "id": id, "title": title, "description": description,
-        "kind": kind, "author": author, "content": content, "coverImage": coverImage,
-        "flag": flag
-    };
-    if (id > 0) {
-        url = '/admin/blogs/update';
+    if (id != 0) {
+        var kind=$('#kindto').val();
+        url = '/admin/resources/update';
         swlMessage = '修改成功';
         data = {
-            "id": id,
-            "title": title,
-            "description": description,
-            "kind": kind,
-            "author": author,
-            "content": content,
-            "coverImage": coverImage,
+            "id": id, "title": title, "description": description,
+            "kind":kind , "url": lujin, "img": coverImage,
+            "flag": flag
+        };
+    }else {
+        url='/admin/resources/save'
+        var kind=$('#kind').val();
+        data = {
+            "id": id, "title": title, "description": description,
+            "kind": kind, "url": lujin, "img": coverImage,
             "flag": flag
         };
     }
+
+
     console.log(data);
 
     $.ajax({
@@ -164,11 +150,11 @@ $('#saveButton').click(function () {
                     type: 'success',
                     showCancelButton: false,
                     confirmButtonColor: '#3085d6',
-                    confirmButtonText: '返回博客列表',
+                    confirmButtonText: '返回合作资源列表',
                     confirmButtonClass: 'btn btn-success',
                     buttonsStyling: false
                 }).then(function () {
-                    window.location.href = "/admin/blogs";
+                    window.location.href = "/admin/resources";
                 })
             }
             else {
@@ -191,7 +177,7 @@ $('#saveButton').click(function () {
  * 调转到文章列表
  */
 $('#cancelButton').click(function () {
-    window.location.href = "/admin/blogs";
+    window.location.href = "/admin/resources";
 });
 
 

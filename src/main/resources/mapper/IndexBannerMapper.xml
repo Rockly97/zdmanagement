@@ -13,6 +13,10 @@
         INSERT into index_banner  (id,img,descrip)
         VALUE (#{id},#{img},#{descrip});
     </insert>
+    <select id="findBannerById"  parameterType="java.lang.String" resultType="com.zdxt.model.IndexBanner">
+        SELECT * FROM index_banner
+        where id = #{id}
+    </select>
 
     <update id="updateBanner"  parameterType="com.zdxt.model.IndexBanner">
         update index_banner
@@ -26,10 +30,6 @@
         </set>
         WHERE   id = #{indexBanner.id,jdbcType=VARCHAR}
     </update>
-    <select id="findBannerById"  parameterType="java.lang.String" resultType="com.zdxt.model.IndexBanner">
-        SELECT * FROM index_banner
-        where id = #{id}
-    </select>
 
     <delete id="deleteBanner">
         delete from index_banner where id in

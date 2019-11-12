@@ -34,4 +34,59 @@
             limit #{start},#{limit}
         </if>
     </select>
+
+    <insert id="insert" parameterType="com.zdxt.model.IndexBanner">
+        INSERT into cooperative_resources  (id, url,title, create_Time, update_Time, description,
+        logo, kind, flag)
+        VALUE (#{id},#{url},#{title},#{createTime},#{updateTime},#{description},#{logo},#{kind},#{flag});
+    </insert>
+    <select id="findCooperativeResourcesById"  parameterType="java.lang.String" resultType="com.zdxt.model.CooperativeResources">
+        SELECT * FROM cooperative_resources
+        where id = #{id}
+    </select>
+    <delete id="deleteResources">
+        delete from cooperative_resources where id in
+        <!-- foreach用于迭代数组元素
+             open表示开始符号
+             close表示结束符合
+             separator表示元素间的分隔符
+             item表示迭代的数组，属性值可以任意，但提倡与方法的数组名相同
+             #{ids}表示数组中的每个元素值
+         -->
+        <foreach collection="array" open="(" close=")" separator="," item="ids">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <update id="updateResources"  parameterType="com.zdxt.model.CooperativeResources">
+        update cooperative_resources
+        <set>
+            <if test="cooperativeResources.logo != null" >
+                logo = #{cooperativeResources.logo,jdbcType=VARCHAR},
+            </if>
+            <if test="cooperativeResources.url!= null" >
+                url = #{cooperativeResources.url,jdbcType=VARCHAR},
+            </if>
+            <if test="cooperativeResources.title!= null" >
+                title = #{cooperativeResources.title,jdbcType=VARCHAR},
+            </if>
+            <if test="cooperativeResources.description!= null" >
+                description = #{cooperativeResources.description,jdbcType=VARCHAR},
+            </if>
+            <if test="cooperativeResources.kind!= null" >
+                kind = #{cooperativeResources.kind,jdbcType=VARCHAR},
+            </if>
+            <if test="cooperativeResources.flag!= null" >
+                flag = #{cooperativeResources.flag,jdbcType=INTEGER},
+            </if>
+            <if test="cooperativeResources.createTime!= null" >
+                create_Time = #{cooperativeResources.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="cooperativeResources.updateTime!= null" >
+                update_Time = #{cooperativeResources.updateTime,jdbcType=TIMESTAMP},
+            </if>
+
+        </set>
+        WHERE   id = #{cooperativeResources.id,jdbcType=VARCHAR}
+    </update>
 </mapper>

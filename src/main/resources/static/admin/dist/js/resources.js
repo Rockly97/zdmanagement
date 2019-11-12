@@ -5,16 +5,16 @@ $(function () {
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', width: 10, key: true, hidden: true},
-            {label: '标题', name: 'title', index: 'title', width: 80},
-            {label: '预览图', name: 'logo', index: 'logo', width: 100,align:"center", formatter: coverImageFormatter},
-            {label: '描述', name: 'description', index: 'description', align:"center",width: 100},
-            {label: '详情链接', name: 'blogViews', index: 'blogViews', width: 40},
-            {label: '分类', name: 'kind', index: 'kind', width: 40},
-            {label: '添加时间', name: 'createTime', index: 'createTime', width: 80},
-            {label: '状态', name: 'flag', index: 'flag', width: 40, formatter: statusFormatter}
+            {label: '标题', name: 'title', index: 'title', width: 50,align:"center"},
+            {label: '预览图', name: 'logo', index: 'logo', width: 50,align:"center", formatter: coverImageFormatter},
+            {label: '描述', name: 'description', index: 'description',width: 80,align:"center"},
+            {label: '详情链接', name: 'url', index: 'url', width: 50,align:"center"},
+            {label: '分类', name: 'kind', index: 'kind', width: 50,align:"center"},
+            {label: '添加时间', name: 'createTime', index: 'createTime', width: 40,align:"center"},
+            {label: '状态', name: 'flag', index: 'flag', width: 30, formatter: statusFormatter,align:"center"}
         ],
         height: 700,
-        rowNum: 10,
+        rowNum: 3,
         rowList: [3, 6, 9],
         styleUI: 'Bootstrap',
         loadtext: '信息读取中...',
@@ -45,7 +45,7 @@ $(function () {
     });
 
     function coverImageFormatter(cellvalue) {
-        return "<img src='" +'http://localhost:8888/'+ cellvalue + "' width=\"500px\" alt='coverImage'/>";
+        return "<img src='" +'http://localhost:8888/'+ cellvalue + "' style=\"padding-top: 30px;\" width=\"200px\" alt='coverImage'/>";
     }
 
     function statusFormatter(cellvalue) {
@@ -110,26 +110,26 @@ function deleteBlog() {
         buttons: true,
         dangerMode: true,
     }).then((flag) => {
-            if (flag) {
-                $.ajax({
-                    type: "POST",
-                    url: "/admin/blogs/delete",
-                    contentType: "application/json",
-                    data: JSON.stringify(ids),
-                    success: function (r) {
-                        if (r.resultCode == 200) {
-                            swal("删除成功", {
-                                icon: "success",
-                            });
-                            $("#jqGrid").trigger("reloadGrid");
-                        } else {
-                            swal(r.message, {
-                                icon: "error",
-                            });
-                        }
+        if (flag) {
+            $.ajax({
+                type: "POST",
+                url: "/admin/resources/delete",
+                contentType: "application/json",
+                data: JSON.stringify(ids),
+                success: function (r) {
+                    if (r.resultCode == 200) {
+                        swal("删除成功", {
+                            icon: "success",
+                        });
+                        $("#jqGrid").trigger("reloadGrid");
+                    } else {
+                        swal(r.message, {
+                            icon: "error",
+                        });
                     }
-                });
-            }
+                }
+            });
         }
-    );
+    }
+);
 }
