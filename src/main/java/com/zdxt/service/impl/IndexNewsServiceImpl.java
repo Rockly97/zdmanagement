@@ -73,7 +73,7 @@ public class IndexNewsServiceImpl implements IndexNewsService {
         if(!oldimg.equals("")&&!oldimg.isEmpty()){
             if(!oldimg_jiequ.equals(newimg_jiequ)){
                 //根据地址删除原来图片
-                File file=new File(UploadController.NEWS+indexNews.getFirstPicture());
+                File file=new File(UploadController.XIANGDUI+oldNews.getFirstPicture());
                 if (!file.exists()) {
                     throw new IOException("删除文件失败！");
                 } else {

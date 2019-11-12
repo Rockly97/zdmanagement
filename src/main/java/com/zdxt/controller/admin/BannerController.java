@@ -139,8 +139,6 @@ public class BannerController {
             return ResultGenerator.getFailResult("描述过长");
         }
         IndexBanner newbanner = new IndexBanner();
-<<<<<<< HEAD
-=======
         newbanner.setDescrip(descrip);
         //删除之前banner文件夹的图片(根据id查询图片路径)
         IndexBanner banner = indexBannerService.findBannerByid(id);
@@ -185,7 +183,7 @@ public class BannerController {
             }
         }
 
->>>>>>> 5455ba94aa0e3872ef0cb80d7db33f38910f3204
+
 
         if(!id.equals("")){
             newbanner.setId(id);
