@@ -1,13 +1,12 @@
 package com.zdxt.controller.admin;
 
 import com.zdxt.common.UploadController;
-import com.zdxt.common.util.*;
+import com.zdxt.common.util.FileUtils;
+import com.zdxt.common.util.IdWorker;
+import com.zdxt.common.util.Result;
+import com.zdxt.common.util.ResultGenerator;
 import com.zdxt.model.IndexBanner;
 import com.zdxt.service.IndexBannerService;
-
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -17,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin
@@ -169,8 +167,6 @@ public class BannerController {
         System.out.println(ids.toString());
 
         if (indexBannerService.deleteBatch(ids)) {
-
-
             return ResultGenerator.getSuccessResult();
         } else {
             return ResultGenerator.getFailResult("删除失败");

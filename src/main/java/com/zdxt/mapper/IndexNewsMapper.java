@@ -18,9 +18,13 @@ public interface IndexNewsMapper {
 
     int getTotalNews(PageQueryUtil queryUtil);
 
-    boolean deleteBatchNews(Integer[] ids);
+    boolean deleteBatchNews(String[] ids);
 
-    String findNewsImg(String id);
+    IndexNews findNewsImg(String id);
 
     IndexNews findByIdNews(String newsId);
+
+    Integer fingCountBigImage(int level);
+
+    List<String> getdelectImageAdd(String[] ids);
 }

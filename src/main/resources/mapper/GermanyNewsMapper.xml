@@ -2,4 +2,62 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zdxt.mapper.GermanyNewsMapper" >
 
+    <resultMap id="GermanyNewsMap" type="com.zdxt.model.GermanyNews">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="author" property="author" jdbcType="VARCHAR"/>
+        <result column="flag" property="flag" jdbcType="TINYINT"/>
+        <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <insert id="insertGermanyNews">
+        INSERT INTO germany_news (id,title,create_time,author,flag,content) values
+        (#{id},#{title},#{createTime},#{author},#{flag},#{content})
+    </insert>
+
+    <update id="updateGermanyNews">
+        UPDATE germany_news
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="flag != null">
+                flag = #{flag,jdbcType=INTEGER},
+            </if>
+            <if test="author != null">
+                author = #{author,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="findGermanyNewsList" resultMap="GermanyNewsMap" parameterType="Map">
+        select * FROM germany_news
+        <if test="start != null and limit != null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+    <select id="getTotalGermanyNews" resultType="int">
+        SELECT count(*) FROM germany_news
+    </select>
+
+
+    <delete id="deleteBatchGermanyNews">
+        delete from germany_news where id in
+        <foreach collection="array" open="(" close=")" separator="," item="ids">
+            #{ids}
+        </foreach>
+    </delete>
+
+    <select id="findGermanyNewsItem" parameterType="java.lang.String" resultMap="GermanyNewsMap">
+        select * from germany_news where id = #{germanyId}
+    </select>
 </mapper>

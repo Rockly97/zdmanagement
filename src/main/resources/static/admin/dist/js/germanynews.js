@@ -2,18 +2,14 @@ $(function () {
 
 
     $("#jqGrid").jqGrid({
-        url: '/admin/news/list',
+        url: '/admin/germanynews/list',
         datatype: "json",
         colModel: [
             {label: 'id', name: 'id', index: 'id', width: 50, key: true, hidden: true},
             {label: '标题', name: 'title', index: 'title', width: 80},
-            {label: '封面图', name: 'firstPicture', index: 'firstPicture', width: 100, formatter: coverImageFormatter},
-            {label: '文章描述', name: 'description', index: 'description', width: 80},
-            {label: '发布状态', name: 'flag', index: 'flag', width: 30, formatter: statusFormatter},
-            {label: '新闻分类', name: 'kind', index: 'kind', width: 40},
-            {label: '置顶状态', name: 'level', index: 'level', width: 30, formatter: levelstatusFormatter},
             {label: '新闻作者', name: 'author', index: 'author', width: 30},
-            {label: '创建时间', name: 'createTime', index: 'createTime', width: 50}
+            {label: '创建时间', name: 'createTime', index: 'createTime', width: 50},
+            {label: '发布状态', name: 'flag', index: 'flag', width: 30, formatter: statusFormatter}
         ],
         height: 700,
         rowNum: 10,
@@ -46,10 +42,6 @@ $(function () {
         $("#jqGrid").setGridWidth($(".card-body").width());
     });
 
-    function coverImageFormatter(cellvalue) {
-        return "<img src='http://localhost:8888/" + cellvalue + "' height=\"120\" width=\"160\" alt='coverImage'/>";
-    }
-
     function statusFormatter(cellvalue) {
         if (cellvalue === 0) {
             return "<button type=\"button\" class=\"btn btn-block btn-secondary btn-sm\" style=\"width: 50%;\">草稿</button>";
@@ -59,43 +51,9 @@ $(function () {
         }
     }
 
-    function levelstatusFormatter(cellvalue) {
-        switch (cellvalue){
-            case 1:
-                return "<button type=\"button\" class=\"btn btn-block btn-primary btn-sm\" style=\"width: 50%;\">大图显示</button>";
-                break;
-            case 2:
-                return "<button type=\"button\" class=\"btn btn-block btn-success btn-sm\" style=\"width: 50%;\">小图显示</button>";
-                break;
-            default:
-                return "<button type=\"button\" class=\"btn btn-block btn-secondary btn-sm\" style=\"width: 50%;\">无置顶</button>";
-                break;
-        }
-    }
-
 });
 
-/**
- * 搜索功能
- */
-function search() {
-    //标题关键字
-    var keyword = $('#keyword').val();
-    // if (!validLength(keyword, 20)) {
-    //     swal("搜索字段长度过大!", {
-    //         icon: "error",
-    //     });
-    //     return false;
-    // }
-    //数据封装
-    var searchData = {keyword: keyword};
-    //传入查询条件参数
-    $("#jqGrid").jqGrid("setGridParam", {postData: searchData});
-    //点击搜索按钮默认都从第一页开始
-    $("#jqGrid").jqGrid("setGridParam", {page: 1});
-    //提交post并刷新表格
-    $("#jqGrid").jqGrid("setGridParam", {url: '/admin/news/list'}).trigger("reloadGrid");
-}
+
 
 /**
  * jqGrid重新加载
@@ -108,7 +66,7 @@ function reload() {
 }
 
 function addBlog() {
-    window.location.href = "/admin/news/edit";
+    window.location.href = "/admin/germanynews/edit";
 }
 
 function editBlog() {
@@ -116,7 +74,7 @@ function editBlog() {
     if (id == null) {
         return;
     }
-    window.location.href = "/admin/news/edit/" + id;
+    window.location.href = "/admin/germanynews/edit/" + id;
 }
 
 function deleteBlog() {
@@ -134,7 +92,7 @@ function deleteBlog() {
             if (flag) {
                 $.ajax({
                     type: "POST",
-                    url: "/admin/news/delete",
+                    url: "/admin/germanynews/delete",
                     contentType: "application/json",
                     data: JSON.stringify(ids),
                     success: function (r) {

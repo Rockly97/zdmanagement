@@ -36,10 +36,23 @@ public class IndexNewsServiceImpl implements IndexNewsService {
 
         FileUtils.copyFile(soure,dest);
         String imageUrl = "news/"+imgNews;
-        com.zdxt.common.util.FileUtils.deletTempFile(UploadController.TEMP);
+
         indexNews.setFirstPicture(imageUrl);
+        int level = indexNews.getLevel();
+        if(level == 1){
+            Integer bigcount  = indexNewsMapper.fingCountBigImage(level);
+            if(bigcount==1){
+                return "bigmax";
+            }
+        }else if(level == 2){
+            Integer smlacount = indexNewsMapper.fingCountBigImage(level);
+            if(smlacount == 4){
+                return "smlamax";
+            }
+        }
         boolean falg = indexNewsMapper.insertNews(indexNews);
         if(falg){
+            com.zdxt.common.util.FileUtils.deletTempFile(UploadController.TEMP);
             return "success";
         }else {
             return "failure";
@@ -49,7 +62,8 @@ public class IndexNewsServiceImpl implements IndexNewsService {
 
     @Override
     public String updataNews(IndexNews indexNews) throws IOException {
-        String oldimg = indexNewsMapper.findNewsImg(indexNews.getId());
+        IndexNews oldNews = indexNewsMapper.findNewsImg(indexNews.getId());
+        String oldimg = oldNews.getFirstPicture();
         //旧图片
         String oldimg_jiequ = oldimg.substring(oldimg.lastIndexOf("/")+1);
         //新图片
@@ -59,7 +73,7 @@ public class IndexNewsServiceImpl implements IndexNewsService {
         if(!oldimg.equals("")&&!oldimg.isEmpty()){
             if(!oldimg_jiequ.equals(newimg_jiequ)){
                 //根据地址删除原来图片
-                File file=new File(UploadController.NEWS+indexNews.getFirstPicture());
+                File file=new File(UploadController.XIANGDUI+oldNews.getFirstPicture());
                 if (!file.exists()) {
                     throw new IOException("删除文件失败！");
                 } else {
@@ -80,11 +94,28 @@ public class IndexNewsServiceImpl implements IndexNewsService {
                 }
                 String  imageurl="news/"+newimg_jiequ;
                 indexNews.setFirstPicture(imageurl);
+            }else {
+                indexNews.setFirstPicture(null);
             }
         }
-        com.zdxt.common.util.FileUtils.deletTempFile(UploadController.TEMP);
+        if(!indexNews.getLevel().equals(oldNews.getLevel())){
+            int level = indexNews.getLevel();
+            if(level == 1){
+                Integer bigcount  = indexNewsMapper.fingCountBigImage(level);
+                if(bigcount==1){
+                    return "bigmax";
+                }
+            }else if(level == 2){
+                Integer smlacount = indexNewsMapper.fingCountBigImage(level);
+                if(smlacount == 4){
+                    return "smlamax";
+                }
+            }
+        }
+
         boolean falg = indexNewsMapper.updataNews(indexNews);
         if(falg){
+            com.zdxt.common.util.FileUtils.deletTempFile(UploadController.TEMP);
             return "success";
         }else {
             return "failure";
@@ -100,8 +131,20 @@ public class IndexNewsServiceImpl implements IndexNewsService {
     }
 
     @Override
-    public boolean deleteBatch(Integer[] ids) {
-        return indexNewsMapper.deleteBatchNews(ids);
+    public boolean deleteBatch(String[] ids) {
+        List<String> imgaddlist = indexNewsMapper.getdelectImageAdd(ids);
+            for (String imgadd: imgaddlist) {
+                File file = new File(UploadController.XIANGDUI + imgadd);
+                if (!file.exists()) {
+                    System.out.println("删除文件失败:"  + "不存在！");
+                } else {
+                    if (file.isFile()){
+                        file.delete();
+                    }
+                }
+            }
+            boolean flag = indexNewsMapper.deleteBatchNews(ids);
+        return flag;
     }
 
     @Override

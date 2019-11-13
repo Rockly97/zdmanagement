@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<header >
+<header th:replace="header::header-fragment">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </header>
 <body class="hold-transition sidebar-mini">
@@ -43,12 +43,14 @@
                                     class="fa fa-trash-o"></i>&nbsp;删除
                             </button>&nbsp;&nbsp;
                             <select class="form-control select2 form-control col-2"  style="width: 100%;" id="keyword"
-                                    data-placeholder="请选择分类...">
+                                    data-placeholder="请选择分类..." onchange="search()">
                                 <option value="0" selected="selected">所有分类</option>
-                                <option value="中德企业协会">中德企业协会</option>
-                                <option value="中德院校">中德院校</option>
-                                <option value="中德政府机构">中德政府机构</option>
-                                <option value="中德研究所">中德研究所</option>
+                                <option value="1" >文章置顶</option>
+                                <option value="科技合作" >科技合作</option>
+                                <option value="教育合作" >教育合作</option>
+                                <option value="企业合作" >企业合作</option>
+                                <option value="语言中心" >语言中心</option>
+                                <option value="合作资源" >合作资源</option>
                             </select>
                         </div>
                         <!-- JqGrid必要DOM,用于创建表格展示列表数据 -->

@@ -7,38 +7,13 @@ $(function () {
         ue.setContent($("#content").val());
     });
 
-    /**
-     * 上传封面
-     */
-    new AjaxUpload('#uploadCoverImage', {
-        action: '/admin/upload/file',
-        name: 'file',
-        autoSubmit: true,
-        responseType: "json",
-        onSubmit: function (file, extension) {
-            if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))) {
-                alert('只支持jpg、png、gif格式的文件！');
-                return false;
-            }
-        },
-        onComplete: function (file, r) {
-            if (r != null && r.resultCode == 200) {
-                $("#blogCoverImage").attr("src", r.data);
-                $("#blogCoverImage").attr("style", "width: 128px;height: 128px;display:block;");
-                return false;
-            } else {
-                alert("error");
-            }
-        }
-    });
+
 
     /**
      * 校验数据
      */
     $('#confirmButton').click(function () {
         var title = $('#newsTitle').val();
-        var description = $('#newsDescription').val();
-        var kind = $('#newsCategoryId').val();
         var author = $('#newsAuthor').val();
         var content = ue.getContent();
         console.log(content);
@@ -54,32 +29,8 @@ $(function () {
             });
             return;
         }
-        if (!validLength(description, 150)) {
-            swal("描述字数过多", {
-                icon: "error",
-            });
-            return;
-        }
-        if (isNull(kind)) {
-            swal("请选择文章分类", {
-                icon: "error",
-            });
-            return;
-        }
         if (isNull(author)) {
             swal("请输入作者", {
-                icon: "error",
-            });
-            return;
-        }
-        if (isNull(description)) {
-            swal("请输入文章描述", {
-                icon: "error",
-            });
-            return;
-        }
-        if (!validLength(description, 400)) {
-            swal("文章描述过长", {
                 icon: "error",
             });
             return;
@@ -104,44 +55,27 @@ $(function () {
     $('#saveButton').click(function () {
         var id = $('#id').val();
         var title = $('#newsTitle').val();
-        var description = $('#newsDescription').val();
-        var kind = $('#newsCategoryId').val();
         var author = $('#newsAuthor').val();
         var content = ue.getContent();
-        var coverImage = $('#blogCoverImage')[0].src;
         var flag = $("input[name='flag']:checked").val();
-        var level = $("input[name='level']:checked").val();
-        if (isNull(coverImage) || coverImage.indexOf('img-upload') != -1) {
-            swal("封面图片不能为空", {
-                icon: "error",
-            });
-            return;
-        }
-        var url = '/admin/news/save';
+
+        var url = '/admin/germanynews/save';
         var swlMessage = '保存成功';
         var data = {
             "title": title,
-            "description": description,
-            "kind": kind,
             "author": author,
             "content": content,
-            "coverImage": coverImage,
-            "flag": flag,
-            "level":level
+            "flag": flag
         };
         if (id > 0) {
-            url = '/admin/news/update';
+            url = '/admin/germanynews/update';
             swlMessage = '修改成功';
             data = {
                 "id": id,
                 "title": title,
-                "description": description,
-                "kind": kind,
                 "author": author,
                 "content": content,
-                "coverImage": coverImage,
-                "flag": flag,
-                "level":level
+                "flag": flag
             };
         }
         console.log(data);
@@ -162,7 +96,7 @@ $(function () {
                         confirmButtonClass: 'btn btn-success',
                         buttonsStyling: false
                     }).then(function () {
-                        window.location.href = "/admin/news";
+                        window.location.href = "/admin/germanynews";
                     })
                 }
                 else {
@@ -185,7 +119,7 @@ $(function () {
      * 调转到新闻列表
      */
     $('#cancelButton').click(function () {
-        window.location.href = "/admin/news";
+        window.location.href = "/admin/germanynews";
     });
 
 });
