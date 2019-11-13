@@ -13,7 +13,7 @@
     </resultMap>
     <insert id="insertGermanyNews">
         INSERT INTO germany_news (id,title,create_time,author,flag,content) values
-        (#{id},#{title},#{create_time},#{author},#{flag},#{content})
+        (#{id},#{title},#{createTime},#{author},#{flag},#{content})
     </insert>
 
     <update id="updateGermanyNews">
@@ -40,7 +40,7 @@
 
     <select id="findGermanyNewsList" resultMap="GermanyNewsMap" parameterType="Map">
         select * FROM germany_news
-        <if test="start!=null and limit!=null">
+        <if test="start != null and limit != null">
             limit #{start},#{limit}
         </if>
     </select>
@@ -56,4 +56,8 @@
             #{ids}
         </foreach>
     </delete>
+
+    <select id="findGermanyNewsItem" parameterType="java.lang.String" resultMap="GermanyNewsMap">
+        select * from germany_news where id = #{germanyId}
+    </select>
 </mapper>

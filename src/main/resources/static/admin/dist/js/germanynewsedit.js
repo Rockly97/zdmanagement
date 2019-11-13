@@ -29,32 +29,8 @@ $(function () {
             });
             return;
         }
-        if (!validLength(description, 150)) {
-            swal("描述字数过多", {
-                icon: "error",
-            });
-            return;
-        }
-        if (isNull(kind)) {
-            swal("请选择文章分类", {
-                icon: "error",
-            });
-            return;
-        }
         if (isNull(author)) {
             swal("请输入作者", {
-                icon: "error",
-            });
-            return;
-        }
-        if (isNull(description)) {
-            swal("请输入文章描述", {
-                icon: "error",
-            });
-            return;
-        }
-        if (!validLength(description, 400)) {
-            swal("文章描述过长", {
                 icon: "error",
             });
             return;
@@ -83,7 +59,7 @@ $(function () {
         var content = ue.getContent();
         var flag = $("input[name='flag']:checked").val();
 
-        var url = '/admin/news/save';
+        var url = '/admin/germanynews/save';
         var swlMessage = '保存成功';
         var data = {
             "title": title,
@@ -92,7 +68,7 @@ $(function () {
             "flag": flag
         };
         if (id > 0) {
-            url = '/admin/news/update';
+            url = '/admin/germanynews/update';
             swlMessage = '修改成功';
             data = {
                 "id": id,

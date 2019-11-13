@@ -30,23 +30,23 @@ public class GermanyController {
 
     @RequestMapping("/germanynews")
     public String news (HttpServletRequest request){
-        request.setAttribute("path","news");
+        request.setAttribute("path","germanynews");
         return "germanynews";
     }
 
     @RequestMapping("/germanynews/edit")
     public String edit(HttpServletRequest request){
-        request.setAttribute("path","newsedit");
+        request.setAttribute("path","germanynewsedit");
         return "germanynewsedit";
     }
 
 
 
 
-    @RequestMapping("/germanynews/edit/{newsId}")
+    @RequestMapping("/germanynews/edit/{germanyId}")
     public String editNewsId(HttpServletRequest request,@PathVariable("germanyId") String germanyId){
         GermanyNews germanyNews = germanyNewsService.getGermanyNewsItem(germanyId);
-        request.setAttribute("indexNews",germanyNews);
+        request.setAttribute("germanyNews",germanyNews);
         return "germanynewsedit";
     }
 
@@ -84,6 +84,7 @@ public class GermanyController {
         //拿到实例类  将实例类存储到数据库中  放回结果字符串 success就代表成功 否则失败
         GermanyNews germanyNews = new GermanyNews();
         germanyNews.setAuthor(author);
+        germanyNews.setTitle(title);
         germanyNews.setContent(content);
         germanyNews.setCreateTime(new Date());
         germanyNews.setFlag(flag);
@@ -127,6 +128,7 @@ public class GermanyController {
         //拿到实例类  将实例类存储到数据库中  放回结果字符串 success就代表成功 否则失败
         GermanyNews germanyNews = new GermanyNews();
         germanyNews.setAuthor(author);
+        germanyNews.setTitle(title);
         germanyNews.setContent(content);
         germanyNews.setCreateTime(new Date());
         germanyNews.setFlag(flag);

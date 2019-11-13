@@ -26,7 +26,7 @@
             <div class="container-fluid">
                 <div class="card card-primary card-outline">
                     <div class="card-header">
-                        <h3 class="card-title">发布新闻</h3>
+                        <h3 class="card-title">发布德国新闻文章</h3>
                     </div>
                     <div class="card-body">
                         <!-- 几个基础的输入框，名称、分类等输入框 -->
@@ -45,7 +45,7 @@
                                        style="width: 100%;">
                             </div>
                             <div class="form-group" id="editor">
-                                <textarea style="display:none;" id="content" th:utext="${germanyNews!=null and germanyNews.content !=null}?${indexNews.content}: ''"></textarea>
+                                <textarea style="display:none;" id="content" th:utext="${germanyNews!=null and germanyNews.content !=null}?${germanyNews.content}: ''"></textarea>
                             </div>
 
                             <div class="form-group">
