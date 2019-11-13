@@ -1,5 +1,98 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zdxt.mapper.ActivityProgramMapper" >
+    <resultMap id="activitymap" type="com.zdxt.model.ActivityProgram">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content" javaType="java.lang.String"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="addr" jdbcType="VARCHAR" property="addr"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="kind" jdbcType="VARCHAR" property="kind"/>
+        <result column="flag" jdbcType="INTEGER" property="flag"/>
+    </resultMap>
+    <sql id="Column_List">
+        id,
+        content,
+        title,
+        create_time,
+        remark,
+        addr,
+        update_time,
+        kind,
+        flag
+    </sql>
+    <select id="getTotalActivity" parameterType="Map" resultType="int">
+        select count(*) from activity_program
+        <if test='keyword!=null and keyword!= "0"'>
+            where  kind = #{keyword}
+        </if>
+    </select>
+    <select id="findActivityProgramList" parameterType="Map" resultMap="activitymap">
+        select
+        <include refid="Column_List"/>
+        from activity_program
+        <if test='keyword!=null and keyword!= "0"'>
+            where  kind = #{keyword}
+        </if>
+        order by create_time desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
 
+    </select>
+    <delete id="deleteActivity">
+        delete from activity_program where id in
+        <!-- foreach用于迭代数组元素
+             open表示开始符号
+             close表示结束符合
+             separator表示元素间的分隔符
+             item表示迭代的数组，属性值可以任意，但提倡与方法的数组名相同
+             #{ids}表示数组中的每个元素值
+         -->
+        <foreach collection="array" open="(" close=")" separator="," item="ids">
+            #{ids}
+        </foreach>
+    </delete>
+    <select id="findActivityProgramById"  parameterType="java.lang.String" resultType="com.zdxt.model.ActivityProgram">
+        SELECT * FROM activity_program
+        where id = #{id}
+    </select>
+    <insert id="insert" parameterType="com.zdxt.model.ActivityProgram">
+        INSERT into activity_program  (id,content,title, create_time,remark, addr,update_time,kind,flag)
+        VALUE (#{id},#{content},#{title},#{createTime},#{remark},#{addr},#{updateTime},#{kind},#{flag});
+    </insert>
+
+    <update id="updateActivityProgram"  parameterType="com.zdxt.model.ActivityProgram">
+        update activity_program
+        <set>
+            <if test="activityProgram.content != null" >
+                content = #{activityProgram.content,jdbcType=VARCHAR},
+            </if>
+            <if test="activityProgram.remark!= null" >
+                remark = #{activityProgram.remark,jdbcType=VARCHAR},
+            </if>
+            <if test="activityProgram.title!= null" >
+                title = #{activityProgram.title,jdbcType=VARCHAR},
+            </if>
+            <if test="activityProgram.addr!= null" >
+                addr = #{activityProgram.addr,jdbcType=VARCHAR},
+            </if>
+            <if test="activityProgram.kind!= null" >
+                kind = #{activityProgram.kind,jdbcType=VARCHAR},
+            </if>
+            <if test="activityProgram.flag!= null" >
+                flag = #{activityProgram.flag,jdbcType=INTEGER},
+            </if>
+            <if test="activityProgram.createTime!= null" >
+                create_time = #{activityProgram.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="activityProgram.updateTime!= null" >
+                update_time = #{activityProgram.updateTime,jdbcType=TIMESTAMP},
+            </if>
+
+        </set>
+        WHERE   id = #{activityProgram.id,jdbcType=VARCHAR}
+    </update>
 </mapper>

@@ -5,15 +5,15 @@
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
-        <result column="create_Time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="update_Time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="logo" jdbcType="VARCHAR" property="logo"/>
         <result column="kind" jdbcType="VARCHAR" property="kind"/>
         <result column="flag" jdbcType="INTEGER" property="flag"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, url, title, create_Time, update_Time, description,
+        id, url, title, create_time, update_time, description,
         logo, kind, flag
     </sql>
     <select id="getTotalResources" parameterType="Map" resultType="int">
@@ -29,14 +29,14 @@
         <if test='keyword!=null and keyword!= "0"'>
         where  kind = #{keyword}
         </if>
-        order by create_Time desc
+        order by create_time desc
         <if test="start!=null and limit!=null">
             limit #{start},#{limit}
         </if>
     </select>
 
     <insert id="insert" parameterType="com.zdxt.model.IndexBanner">
-        INSERT into cooperative_resources  (id, url,title, create_Time, update_Time, description,
+        INSERT into cooperative_resources  (id, url,title, create_time, update_time, description,
         logo, kind, flag)
         VALUE (#{id},#{url},#{title},#{createTime},#{updateTime},#{description},#{logo},#{kind},#{flag});
     </insert>
@@ -80,10 +80,10 @@
                 flag = #{cooperativeResources.flag,jdbcType=INTEGER},
             </if>
             <if test="cooperativeResources.createTime!= null" >
-                create_Time = #{cooperativeResources.createTime,jdbcType=TIMESTAMP},
+                create_time = #{cooperativeResources.createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="cooperativeResources.updateTime!= null" >
-                update_Time = #{cooperativeResources.updateTime,jdbcType=TIMESTAMP},
+                update_time = #{cooperativeResources.updateTime,jdbcType=TIMESTAMP},
             </if>
 
         </set>

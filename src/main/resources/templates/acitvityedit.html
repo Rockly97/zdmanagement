@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header th:replace="header::header-fragment">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</header>
+<body class="hold-transition sidebar-mini">
+
+<link th:href="@{/admin/plugins/tagsinput/jquery.tagsinput.css}" rel="stylesheet"/>
+<link th:href="@{/admin/plugins/select2/select2.css}" rel="stylesheet"/>
+<div class="wrapper">
+    <!-- 引入页面头header-fragment -->
+    <div th:replace="header::header-nav"></div>
+    <!-- 引入工具栏sidebar-fragment -->
+    <div th:replace="sidebar::sidebar-fragment(${path})"></div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">发布活动计划</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- 几个基础的输入框，名称、分类等输入框 -->
+                        <form id="blogForm" onsubmit="return false;">
+                            <div class="form-group" style="display:flex;">
+                                <input type="hidden" id="id" name="id"
+                                       th:value="${activity!=null and activity.id!=null }?${activity.id}: 0">
+                                <input type="text" class="form-control col-sm-6" id="title" name="title"
+                                       placeholder="*请输入活动计划名称(必填)"
+                                       th:value="${activity!=null and activity.title!=null }?${activity.title}: ''"
+                                       required="true">
+                                &nbsp;&nbsp;
+                                <input type="text" class="form-control" id="content" name="content"
+                                       placeholder="请输入活动计划详细内容"
+                                       th:value="${activity!=null and activity.content!=null }?${activity.content}: ''"
+                                       style="width: 100%;">
+                            </div>
+                            <div class="form-group" style="display:flex;">
+                                <input type="text" class="form-control col-sm-6" id="addr"
+                                       name="addr"
+                                       th:value="${activity!=null and activity.addr!=null }?${activity.addr}: ''"
+                                       placeholder="请输入活动计划的地址"> &nbsp;&nbsp;
+                                <th:block th:if="${null == activity}">
+                                    <select class="form-control select2" style="width: 100%;" id="kind"
+                                            data-placeholder="请选择分类...">
+                                        <option value="科技合作">科技合作</option>
+                                        <option value="教育合作">教育合作</option>
+                                        <option value="企业合作">企业合作</option>
+                                        <option value="语言中心">语言中心</option>
+                                    </select>
+                                </th:block>
+
+                                <th:block th:unless="${null == activity}">
+                                    <select class="form-control select2" style="width: 100%;" id="kindto"
+                                            data-placeholder="请选择分类...">
+                                        <option value="科技合作"  th:selected="${ activity.kind == '科技合作' }" >科技合作</option>
+                                        <option value="教育合作" th:selected="${ activity.kind == '教育合作' }">教育合作</option>
+                                        <option value="企业合作" th:selected="${ activity.kind == '企业合作' }">企业合作</option>
+                                        <option value="语言中心" th:selected="${ activity.kind =='语言中心' }">语言中心</option>
+                                    </select>
+                                </th:block>
+                            </div>
+                            <div class="form-group" style="display:flex;">
+                                <input type="text" class="form-control col-sm-6" id="remark" name="remark"
+                                       placeholder="请输入活动计划备注"
+                                       th:value="${activity!=null and activity.remark!=null }?${activity.remark}: ''"
+                                       required="true">
+                                &nbsp;&nbsp;
+                                <div class="form-group">
+                                    <label class="control-label">文章状态:&nbsp;</label>
+                                    <input name="flag" type="radio" id="publish"
+                                           checked=true
+                                           th:checked="${null==activity||(null !=activity and null !=activity.flag and activity.flag==1)} ?true:false"
+                                           value="1"/>&nbsp;发布&nbsp;
+                                    <input name="flag" type="radio" id="draft" value="0"
+                                           th:checked="${null !=activity and null !=activity.flag and activity.flag==0} ?true:false"/>&nbsp;草稿&nbsp;
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <!-- 按钮 -->
+                                &nbsp;<button class="btn btn-info float-right" style="margin-left: 5px;"
+                                              id="confirmButton">保存活动计划
+                            </button>&nbsp;
+                                &nbsp;<button class="btn btn-secondary float-right" style="margin-left: 5px;"
+                                              id="cancelButton">返回活动计划列表
+                            </button>&nbsp;
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div><!-- /.container-fluid -->
+        </div>
+    </div>
+    <!-- /.content-wrapper -->
+    <!-- 引入页脚footer-fragment -->
+    <div th:replace="footer::footer-fragment"></div>
+</div>
+<!-- jQuery -->
+<script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script th:src="@{/admin/plugins/jQueryUI/jquery-ui.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/admin/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/admin/dist/js/adminlte.min.js}"></script>
+
+<!-- tagsinput -->
+<script th:src="@{/admin/plugins/tagsinput/jquery.tagsinput.min.js}"></script>
+<!-- Select2 -->
+<script th:src="@{/admin/plugins/select2/select2.full.min.js}"></script>
+<!-- sweetalert -->
+<script th:src="@{/admin/plugins/sweetalert/sweetalert.min.js}"></script>
+<!-- ajaxupload -->
+<script th:src="@{/admin/plugins/ajaxupload/ajaxupload.js}"></script>
+<script th:src="@{/admin/dist/js/public.js}"></script>
+<script th:src="@{/admin/dist/js/activityedit.js}"></script>
+</body>
+</html>

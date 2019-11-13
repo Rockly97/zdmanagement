@@ -74,7 +74,7 @@ $('#saveButton').click(function () {
         data: data,
         success: function (result) {
             if (result.resultCode == 200) {
-                $('#articleModal').modal('hide');
+
                 swal({
                     title: swlMessage,
                     type: 'success',
@@ -88,7 +88,7 @@ $('#saveButton').click(function () {
                 })
             }
             else {
-                $('#articleModal').modal('hide');
+
                 swal(result.message, {
                     icon: "error",
                 });

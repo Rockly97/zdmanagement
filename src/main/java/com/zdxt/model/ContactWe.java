@@ -1,6 +1,9 @@
 package com.zdxt.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 public class ContactWe implements Serializable {
     private String id;
@@ -8,6 +11,28 @@ public class ContactWe implements Serializable {
     public ContactWe() {
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactWe{" +
+                "id='" + id + '\'' +
+                ", createTime=" + createTime +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", coment='" + coment + '\'' +
+                '}';
+    }
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private Date createTime;
     public String getId() {
         return id;
     }
@@ -57,14 +82,4 @@ public class ContactWe implements Serializable {
     private String phone;
     private String coment;
 
-    @Override
-    public String toString() {
-        return "ContactWe{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", coment='" + coment + '\'' +
-                '}';
-    }
 }
