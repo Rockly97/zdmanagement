@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zdxt.mapper.ContactWeMapper" >
+    <resultMap id="BaseResultMap" type="com.zdxt.model.ContactWe">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="coment" jdbcType="VARCHAR" property="coment"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,name, email, create_time, phone, coment
 
+    </sql>
+    <select id="getTotalinterface" parameterType="Map" resultType="int">
+        select count(*) from contactwe
+    </select>
+    <select id="findContactWeList" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from contactwe
+        order by create_time desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+    <insert id="insert" parameterType="com.zdxt.model.ContactWe">
+        INSERT into contactwe  ( id,name, email, create_time, phone, coment)
+        VALUE (#{id},#{name},#{email},#{createTime},#{phone},#{coment});
+    </insert>
+    <select id="findContactWeContactWeById"  parameterType="java.lang.String" resultType="com.zdxt.model.ContactWe">
+        SELECT * FROM contactwe
+        where id = #{id}
+    </select>
+    <delete id="deleteinterface">
+        delete from contactwe where id in
+        <!-- foreach用于迭代数组元素
+             open表示开始符号
+             close表示结束符合
+             separator表示元素间的分隔符
+             item表示迭代的数组，属性值可以任意，但提倡与方法的数组名相同
+             #{ids}表示数组中的每个元素值
+         -->
+        <foreach collection="array" open="(" close=")" separator="," item="ids">
+            #{ids}
+        </foreach>
+    </delete>
 
 </mapper>
