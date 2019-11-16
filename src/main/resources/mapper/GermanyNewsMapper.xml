@@ -44,6 +44,14 @@
             limit #{start},#{limit}
         </if>
     </select>
+    <select id="findSearch" resultMap="GermanyNewsMap" parameterType="java.lang.String">
+        select * FROM germany_news WHERE flag=1
+        <if test='search!=null'>
+            AND (title like CONCAT('%',#{search},'%') or content like CONCAT('%',#{search},'%'))
+        </if>
+    </select>
+
+
 
     <select id="getTotalGermanyNews" resultType="int">
         SELECT count(*) FROM germany_news

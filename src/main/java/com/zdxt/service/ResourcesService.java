@@ -9,6 +9,8 @@ public interface ResourcesService {
 
     PageResult getResourcePage(PageQueryUtil pageUtil);
     int getTotalResource();
+    PageResult getResourcePageApi(PageQueryUtil pageUtil);
+    int getTotalResourceApi();
     public CooperativeResources findCooperativeResourcesByid (String id);
     public String save (CooperativeResources cooperativeResources);
     Boolean deleteBatch(String[] ids);

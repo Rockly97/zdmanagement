@@ -15,6 +15,7 @@ public interface IndexNewsMapper {
     boolean updataNews(IndexNews indexNews);
 
     List<IndexNews> findNewsList(PageQueryUtil queryUtil);
+    List<IndexNews> findSearch(String search);
 
     int getTotalNews(PageQueryUtil queryUtil);
 
