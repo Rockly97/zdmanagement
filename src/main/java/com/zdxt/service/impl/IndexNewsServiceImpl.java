@@ -152,5 +152,19 @@ public class IndexNewsServiceImpl implements IndexNewsService {
         return indexNewsMapper.findByIdNews(newsId);
     }
 
+    @Override
+    public PageResult getNewsList(PageQueryUtil pageUtil) {
+        List<IndexNews> indexNewsList =  indexNewsMapper.findNewsListItme(pageUtil);
+        int total = indexNewsMapper.getTotalNewsItem(pageUtil);
+        PageResult pageResult = new PageResult(indexNewsList,total,pageUtil.getPage(),pageUtil.getLimit());
+        return pageResult;
+    }
+
+    @Override
+    public List<IndexNews> findNewsTopic() {
+        List<IndexNews> indexNewsList = indexNewsMapper.findNewsTopic();
+        return indexNewsList;
+    }
+
 
 }

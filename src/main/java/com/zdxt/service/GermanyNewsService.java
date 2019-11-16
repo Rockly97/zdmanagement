@@ -3,7 +3,6 @@ package com.zdxt.service;
 import com.zdxt.common.util.PageQueryUtil;
 import com.zdxt.common.util.PageResult;
 import com.zdxt.model.GermanyNews;
-import com.zdxt.model.IndexNews;
 
 import java.util.List;
 
@@ -21,5 +20,5 @@ public interface GermanyNewsService {
 
     boolean deleteBatch(String[] ids);
 
-    List<GermanyNews> getGermanyNewsList();
+    PageResult getGermanyNewsList(PageQueryUtil pageUtil);
 }

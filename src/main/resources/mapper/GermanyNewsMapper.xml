@@ -71,6 +71,17 @@
 
     <select id="findGermanyAllList" resultMap="GermanyNewsMap">
         select * FROM  germany_news where flag = 1
+        <if test="keyword != null">
+            <if test="keyword != '0'.toString() and keyword != '1'.toString()">
+                AND kind = #{keyword}
+            </if>
+        </if>
+        <if test="keyword == '1'.toString()">
+            AND level > 0
+        </if>
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
     </select>
 
 </mapper>

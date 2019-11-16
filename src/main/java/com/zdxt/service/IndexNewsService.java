@@ -6,6 +6,7 @@ import com.zdxt.common.util.PageResult;
 import com.zdxt.model.IndexNews;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by Rockly on 2019/11/10 23:06.
@@ -21,4 +22,8 @@ public interface IndexNewsService {
     boolean deleteBatch(String[] ids);
 
     IndexNews getNewsItem(String newsId);
+
+    PageResult getNewsList(PageQueryUtil pageUtil);
+
+    List<IndexNews> findNewsTopic();
 }

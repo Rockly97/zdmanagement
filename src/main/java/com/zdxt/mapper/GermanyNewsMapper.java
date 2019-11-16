@@ -24,5 +24,5 @@ public interface GermanyNewsMapper {
 
     boolean deleteBatchGermanyNews(String[] ids);
 
-    List<GermanyNews> findGermanyAllList();
+    List<GermanyNews> findGermanyAllList(PageQueryUtil pageUtil);
 }
