@@ -41,6 +41,9 @@
             AND  kind = #{keyword}
         </if>
     </select>
+    <select id="getCount" resultType="int">
+        select count(*) from cooperative_resources
+    </select>
     <select id="findResourcesListApi" parameterType="Map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

@@ -9,6 +9,9 @@
     <select id="findAllBanner" parameterType="java.util.Map" resultMap="pageMap">
         select * from index_banner
     </select>
+    <select id="getCount" resultType="int">
+        SELECT count(*) FROM index_banner
+    </select>
     <insert id="insert" parameterType="com.zdxt.model.IndexBanner">
         INSERT into index_banner  (id,img,descrip)
         VALUE (#{id},#{img},#{descrip});

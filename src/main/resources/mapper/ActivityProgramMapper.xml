@@ -49,6 +49,9 @@
             AND kind = #{keyword}
         </if>
     </select>
+    <select id="getCount"  resultType="int">
+        select count(*) from activity_program
+    </select>
     <select id="findActivityProgramListAPi" parameterType="Map" resultMap="activitymap">
         select
         <include refid="Column_List"/>

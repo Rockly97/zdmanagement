@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface ContactWeMapper {
+    int getCount();
     List<ContactWe> findContactWeList(PageQueryUtil pageUtil);
     int getTotalinterface(PageQueryUtil pageUtil);
     public int deleteinterface(String[] ids);

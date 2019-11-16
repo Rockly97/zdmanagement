@@ -13,4 +13,5 @@ public interface IndexBannerMapper {
     boolean insert(IndexBanner indexBanner);
     boolean updateBanner(@Param("indexBanner")IndexBanner indexBanner);
     public int deleteBanner(String[] ids);
+    int getCount();
 }

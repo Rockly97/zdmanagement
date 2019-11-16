@@ -13,6 +13,9 @@
         id,name, email, create_time, phone, coment
 
     </sql>
+    <select id="getCount"  resultType="int">
+        select count(*) from contactwe
+    </select>
     <select id="getTotalinterface" parameterType="Map" resultType="int">
         select count(*) from contactwe
     </select>

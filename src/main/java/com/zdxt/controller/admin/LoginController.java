@@ -1,8 +1,10 @@
 package com.zdxt.controller.admin;
 
+import com.zdxt.common.dto.Count;
 import com.zdxt.common.util.*;
 import com.zdxt.model.ZdUser;
 import com.zdxt.service.AdminUserService;
+import com.zdxt.service.CountService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,8 @@ public class LoginController {
     @Autowired
     private AdminUserService adminUserService;
 
-
+    @Autowired
+    private CountService countService;
     /**
      * 首页
      * @param request
@@ -37,11 +40,8 @@ public class LoginController {
     public String index(HttpServletRequest request,HttpSession session){
         request.setAttribute("path","index");
         //标签展示
-        request.setAttribute("categoryCount",1);
-        request.setAttribute("blogCount",1);
-        request.setAttribute("linkCount",1);
-        request.setAttribute("tagCount",1);
-        request.setAttribute("commentCount",1);
+        Count count = countService.findCount();
+        request.setAttribute("count",count);
         return "index";
     }
 

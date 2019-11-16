@@ -9,7 +9,7 @@ import java.util.List;
 
 @Component
 public interface GermanyNewsMapper {
-
+    int getCount();
     GermanyNews findGermanyNewsItem(String germanyId);
 
 

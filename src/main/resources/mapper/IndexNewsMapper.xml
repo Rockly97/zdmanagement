@@ -150,5 +150,7 @@
     <select id="findNewsTopic" resultMap="NewsBaseMap">
         select * FROM index_news where level > 0
     </select>
-
+    <select id="getCount" resultType="int">
+        select count(*) FROM index_news
+    </select>
 </mapper>

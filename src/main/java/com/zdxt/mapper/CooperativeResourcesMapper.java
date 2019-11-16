@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface CooperativeResourcesMapper {
+    int getCount();
     List<CooperativeResources> findResourcesList(PageQueryUtil pageUtil);
     List<CooperativeResources> findResourcesListApi(PageQueryUtil pageUtil);
     List<CooperativeResources> findSearch(String search);

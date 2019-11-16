@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface ActivityProgramMapper {
-
+    int getCount();
     List<ActivityProgram> findActivityProgramList(PageQueryUtil pageUtil);
     List<ActivityProgram> findActivityProgramListAPi(PageQueryUtil pageUtil);
     List<ActivityProgram> findSearch(String search);

@@ -53,6 +53,7 @@
 
 
 
+
     <select id="getTotalGermanyNews" resultType="int">
         SELECT count(*) FROM germany_news
     </select>
@@ -83,5 +84,7 @@
             limit #{start},#{limit}
         </if>
     </select>
-
+    <select id="getCount" resultType="int">
+        SELECT count(*) FROM germany_news
+    </select>
 </mapper>

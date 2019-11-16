@@ -9,7 +9,7 @@ import java.util.List;
 
 @Component
 public interface IndexNewsMapper {
-
+    int getCount();
     boolean insertNews(IndexNews indexNews);
 
     boolean updataNews(IndexNews indexNews);
