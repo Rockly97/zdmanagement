@@ -10,7 +10,10 @@ import java.util.List;
 
 public interface CooperativeResourcesMapper {
     List<CooperativeResources> findResourcesList(PageQueryUtil pageUtil);
+    List<CooperativeResources> findResourcesListApi(PageQueryUtil pageUtil);
+    List<CooperativeResources> findSearch(String search);
     int getTotalResources(PageQueryUtil pageUtil);
+    int getTotalResourcesApi(PageQueryUtil pageUtil);
     public int deleteResources(String[] ids);
     CooperativeResources findCooperativeResourcesById(String id);
     boolean insert(CooperativeResources cooperativeResources);

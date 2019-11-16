@@ -22,6 +22,7 @@
             where  kind = #{keyword}
         </if>
     </select>
+
     <select id="findResourcesList" parameterType="Map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -34,7 +35,33 @@
             limit #{start},#{limit}
         </if>
     </select>
-
+    <select id="getTotalResourcesApi" parameterType="Map" resultType="int">
+        select count(*) from cooperative_resources WHERE flag=1
+        <if test='keyword!=null and keyword!= "0"'>
+            AND  kind = #{keyword}
+        </if>
+    </select>
+    <select id="findResourcesListApi" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cooperative_resources  WHERE flag=1
+        <if test='keyword!=null and keyword!= "0"'>
+            and  kind = #{keyword}
+        </if>
+        order by create_time desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+    <select id="findSearch" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cooperative_resources  WHERE flag=1
+        <if test='search!=null'>
+            AND (title like CONCAT('%',#{search},'%') or description like CONCAT('%',#{search},'%'))
+        </if>
+        order by create_time desc
+    </select>
     <insert id="insert" parameterType="com.zdxt.model.IndexBanner">
         INSERT into cooperative_resources  (id, url,title, create_time, update_time, description,
         logo, kind, flag)

@@ -18,6 +18,7 @@ public interface GermanyNewsMapper {
     boolean updateGermanyNews(GermanyNews germanyNews);
 
     List<GermanyNews> findGermanyNewsList(PageQueryUtil queryUtil);
+    List<GermanyNews> findSearch(String search);
 
     int getTotalGermanyNews(PageQueryUtil queryUtil);
 

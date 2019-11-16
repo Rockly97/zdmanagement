@@ -13,4 +13,6 @@ public interface ActivityService {
     public String save(ActivityProgram activityProgram);
     Boolean deleteBatch(String[] ids);
     public String updateActivityProgram(ActivityProgram activityProgram);
+    PageResult getActivityPageApi(PageQueryUtil pageUtil);
+    int getTotalActivityApi();
 }

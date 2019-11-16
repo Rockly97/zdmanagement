@@ -63,4 +63,22 @@ public class ActivityServiceImpl implements ActivityService{
             return  "修改失败";
         }
     }
+
+    @Override
+    public PageResult getActivityPageApi(PageQueryUtil pageUtil) {
+        List<ActivityProgram> blogList = activityProgramMapper.findActivityProgramListAPi(pageUtil);
+        if(blogList.size()==0||blogList==null){
+            return null;
+        }
+
+//        查询总数
+        int total = activityProgramMapper.getTotalActivityApi(pageUtil);
+        PageResult pageResult = new PageResult(blogList, total, pageUtil.getLimit(), pageUtil.getPage());
+        return pageResult;
+    }
+
+    @Override
+    public int getTotalActivityApi() {
+        return activityProgramMapper.getTotalActivityApi(null);
+    }
 }

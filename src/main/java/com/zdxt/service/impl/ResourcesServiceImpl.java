@@ -41,6 +41,24 @@ public class ResourcesServiceImpl implements ResourcesService {
     }
 
     @Override
+    public PageResult getResourcePageApi(PageQueryUtil pageUtil) {
+        List<CooperativeResources> blogList = cooperativeResourcesMapper.findResourcesListApi(pageUtil);
+        if(blogList.size()==0||blogList==null){
+            return null;
+        }
+
+//        查询总数
+        int total = cooperativeResourcesMapper.getTotalResourcesApi(pageUtil);
+        PageResult pageResult = new PageResult(blogList, total, pageUtil.getLimit(), pageUtil.getPage());
+        return pageResult;
+    }
+
+    @Override
+    public int getTotalResourceApi() {
+        return cooperativeResourcesMapper.getTotalResourcesApi(null);
+    }
+
+    @Override
     public CooperativeResources findCooperativeResourcesByid(String id) {
         CooperativeResources cooperativeResourcesById = cooperativeResourcesMapper.findCooperativeResourcesById(id);
         if(!cooperativeResourcesById.getLogo().equals("")&&!cooperativeResourcesById.getLogo().isEmpty()){

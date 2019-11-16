@@ -29,6 +29,7 @@
             where  kind = #{keyword}
         </if>
     </select>
+
     <select id="findActivityProgramList" parameterType="Map" resultMap="activitymap">
         select
         <include refid="Column_List"/>
@@ -41,6 +42,33 @@
             limit #{start},#{limit}
         </if>
 
+    </select>
+    <select id="getTotalActivityApi" parameterType="Map" resultType="int">
+        select count(*) from activity_program WHERE flag=1
+        <if test='keyword!=null and keyword!= "0"'>
+            AND kind = #{keyword}
+        </if>
+    </select>
+    <select id="findActivityProgramListAPi" parameterType="Map" resultMap="activitymap">
+        select
+        <include refid="Column_List"/>
+        from activity_program where flag=1
+        <if test='keyword!=null and keyword!= "0"'>
+            AND   kind = #{keyword}
+        </if>
+        order by create_time desc
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+    <select id="findSearch" parameterType="java.lang.String" resultMap="activitymap">
+        select
+        <include refid="Column_List"/>
+        from activity_program where flag=1
+        <if test='search!=null'>
+            AND (title like CONCAT('%',#{search},'%') or content like CONCAT('%',#{search},'%'))
+        </if>
+        order by create_time desc
     </select>
     <delete id="deleteActivity">
         delete from activity_program where id in
