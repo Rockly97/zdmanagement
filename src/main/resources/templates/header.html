@@ -5,7 +5,7 @@
 <head th:fragment="header-fragment">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Rocky blog | 后台管理系统</title>
+    <title>中德 | 后台管理系统</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -29,42 +29,15 @@
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a th:href="@{/admin/index}" class="nav-link">博客后台管理界面</a>
+            <a th:href="@{/admin/index}" class="nav-link">中德管理后台界面</a>
         </li>
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
             <a class="nav-link" th:href="@{/}">
-                <i class="fa fa-paper-plane">&nbsp;&nbsp;博客首页</i>
+                <i class="fa fa-paper-plane">&nbsp;&nbsp;网址首页</i>
             </a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="fa fa-user">&nbsp;&nbsp;作者</i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fa fa-circle mr-2"></i> 姓名
-                    <span class="float-right text-muted text-sm">Rocky</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fa fa-user-secret mr-2"></i> 身份
-                    <span class="float-right text-muted text-sm">BUG工程研发师</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fa fa-envelope-o mr-2"></i> 邮箱
-                    <span class="float-right text-muted text-sm">1031881850@qq.com</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fa fa-github mr-2"></i> GitHub
-                    <span class="float-right text-muted text-sm">@Rocky97</span>
-                </a>
-            </div>
         </li>
     </ul>
 </nav>

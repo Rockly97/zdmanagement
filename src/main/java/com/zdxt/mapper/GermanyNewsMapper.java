@@ -23,4 +23,6 @@ public interface GermanyNewsMapper {
     int getTotalGermanyNews(PageQueryUtil queryUtil);
 
     boolean deleteBatchGermanyNews(String[] ids);
+
+    List<GermanyNews> findGermanyAllList(PageQueryUtil pageUtil);
 }

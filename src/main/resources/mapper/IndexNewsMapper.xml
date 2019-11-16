@@ -77,6 +77,7 @@
             AND (title like CONCAT('%',#{search},'%') or description like CONCAT('%',#{search},'%') or content like CONCAT('%',#{search},'%'))
         </if>
     </select>
+
     <select id="getTotalNews" resultType="int">
         select count(*) FROM index_news where 1=1
         <if test="keyword != null">
@@ -115,6 +116,39 @@
         <foreach collection="array" open="(" close=")" separator="," item="ids">
             #{ids}
         </foreach>
+    </select>
+
+    <select id="findNewsListItme" resultMap="NewsBaseMap">
+        select * FROM index_news WHERE flag = 1
+        <if test="keyword != null">
+            <if test="keyword != '0'.toString() and keyword != '1'.toString()">
+                AND kind = #{keyword}
+            </if>
+        </if>
+        <if test="keyword == '1'.toString()">
+            AND level > 0
+        </if>
+        <if test="start!=null and limit!=null">
+            limit #{start},#{limit}
+        </if>
+    </select>
+
+
+    <select id="getTotalNewsItem" resultType="int">
+        select count(*) FROM index_news where flag = 1
+        <if test="keyword != null">
+            <if test="keyword != '0'.toString() and keyword != '1'.toString()">
+                AND kind = #{keyword}
+            </if>
+        </if>
+
+        <if test="keyword != '1'.toString()">
+            AND level > 0
+        </if>
+    </select>
+
+    <select id="findNewsTopic" resultMap="NewsBaseMap">
+        select * FROM index_news where level > 0
     </select>
 
 </mapper>

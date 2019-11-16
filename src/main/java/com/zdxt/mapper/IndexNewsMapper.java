@@ -28,4 +28,10 @@ public interface IndexNewsMapper {
     Integer fingCountBigImage(int level);
 
     List<String> getdelectImageAdd(String[] ids);
+
+    List<IndexNews> findNewsListItme(PageQueryUtil pageUtil);
+
+    int getTotalNewsItem(PageQueryUtil pageUtil);
+
+    List<IndexNews> findNewsTopic();
 }

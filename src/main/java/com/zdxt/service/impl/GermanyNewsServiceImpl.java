@@ -4,7 +4,6 @@ import com.zdxt.common.util.PageQueryUtil;
 import com.zdxt.common.util.PageResult;
 import com.zdxt.mapper.GermanyNewsMapper;
 import com.zdxt.model.GermanyNews;
-import com.zdxt.model.IndexNews;
 import com.zdxt.service.GermanyNewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,5 +57,13 @@ public class GermanyNewsServiceImpl implements GermanyNewsService{
     public boolean deleteBatch(String[] ids) {
         boolean flag = germanyNewsMapper.deleteBatchGermanyNews(ids);
         return flag;
+    }
+
+    @Override
+    public PageResult getGermanyNewsList(PageQueryUtil pageUtil) {
+        List<GermanyNews> germanyNewsList =  germanyNewsMapper.findGermanyAllList(pageUtil);
+        int total = germanyNewsMapper.getTotalGermanyNews(pageUtil);
+        PageResult pageResult = new PageResult(germanyNewsList,total,pageUtil.getPage(),pageUtil.getLimit());
+        return pageResult;
     }
 }

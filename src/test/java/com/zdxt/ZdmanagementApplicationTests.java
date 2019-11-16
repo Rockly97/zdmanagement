@@ -1,5 +1,6 @@
 package com.zdxt;
 
+import com.zdxt.common.util.MD5Util;
 import com.zdxt.common.util.PageQueryUtil;
 import com.zdxt.mapper.ActivityProgramMapper;
 import com.zdxt.model.ActivityProgram;
@@ -18,25 +19,9 @@ import java.util.Map;
 public class ZdmanagementApplicationTests {
 
 
-	@Autowired
-	private ActivityProgramMapper activityProgramMapper;
-
 	@Test
 	public void contextLoads() {
-//		_search: false
-////		nd: 1573565021747
-////		limit: 3
-////		page: 1
-////		sidx:
-////		order: asc
-
-		Map map = new HashMap();
-		map.put("limit",3);
-		map.put("page",1);
-		PageQueryUtil pageQueryUtil = new PageQueryUtil(map);
-        List<ActivityProgram> activityProgramList = activityProgramMapper.findActivityProgramList(pageQueryUtil);
-
-
+		System.out.println(MD5Util.MD5Encode("123456", "UTF-8"));
     }
 
 }
