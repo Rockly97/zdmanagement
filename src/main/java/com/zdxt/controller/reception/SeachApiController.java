@@ -15,7 +15,7 @@ import java.util.Map;
 public class SeachApiController{
     @Autowired
     SearchService searchService;
-    @RequestMapping(value = "/search/list",method = RequestMethod.POST)
+    @RequestMapping(value = "/search/list",method = RequestMethod.GET)
     @ResponseBody
     public Result list(@RequestParam Map<String, Object> params) {
         String search = (String) params.get("search");
