@@ -4,16 +4,18 @@ $(function () {
         $("#updateUserNameButton").attr("disabled",true);
         var userName = $('#loginUserName').val();
         var nickName = $('#nickName').val();
-        if (validUserNameForUpdate(userName, nickName)) {
+        var userEmail = $('#userEmail').val();
+        var userPhone = $('#userPhone').val();
+        if (validUserNameForUpdate(userName, nickName,userEmail,userPhone)) {
             //ajax提交数据
             var params = $("#userNameForm").serialize();
             $.ajax({
                 type: "POST",
-                url: "/admin/profile/updata",
+                url: "/admin/user/updata",
                 data: params,
                 success: function (r) {
                     console.log(r);
-                    if (r == 'success') {
+                    if (r === 'success') {
                         alert('修改成功');
                     } else {
                         alert('修改失败');
@@ -22,7 +24,6 @@ $(function () {
             });
         }
     });
-
     //修改密码
     $('#updatePasswordButton').click(function () {
         $("#updatePasswordButton").attr("disabled",true);
@@ -32,7 +33,7 @@ $(function () {
             var params = $("#userPasswordForm").serialize();
             $.ajax({
                 type: "POST",
-                url: "/admin/profile/password",
+                url: "/admin/user/password",
                 data: params,
                 success: function (r) {
                     console.log(r);
@@ -51,7 +52,7 @@ $(function () {
 /**
  * 名称验证
  */
-function validUserNameForUpdate(userName, nickName) {
+function validUserNameForUpdate(userName, nickName,userEmail,userPhone) {
     if (isNull(userName) || userName.trim().length < 1) {
         $('#updateUserName-info').css("display", "block");
         $('#updateUserName-info').html("请输入登陆名称！");
@@ -70,6 +71,16 @@ function validUserNameForUpdate(userName, nickName) {
     if (!validCN_ENString2_18(nickName)) {
         $('#updateUserName-info').css("display", "block");
         $('#updateUserName-info').html("请输入符合规范的昵称！");
+        return false;
+    }
+    if(!isNull(userEmail)){
+        $('#updateUserName-info').css("display", "block");
+        $('#updateUserName-info').html("请输入邮箱！");
+        return false;
+    }
+    if(!isNull(userPhone)){
+        $('#updateUserName-info').css("display", "block");
+        $('#updateUserName-info').html("请输入电话号码！");
         return false;
     }
     return true;

@@ -60,4 +60,9 @@
     <select id="findGermanyNewsItem" parameterType="java.lang.String" resultMap="GermanyNewsMap">
         select * from germany_news where id = #{germanyId}
     </select>
+
+    <select id="findGermanyAllList" resultMap="GermanyNewsMap">
+        select * FROM  germany_news where flag = 1
+    </select>
+
 </mapper>

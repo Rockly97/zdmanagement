@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<header th:replace="admin/header::header-fragment">
+<header th:replace="header::header-fragment">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </header>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
     <!-- 引入页面头header-fragment -->
-    <div th:replace="admin/header::header-nav"></div>
+    <div th:replace="header::header-nav"></div>
     <!-- 引入工具栏sidebar-fragment -->
-    <div th:replace="admin/sidebar::sidebar-fragment(${path})"></div>
+    <div th:replace="sidebar::sidebar-fragment(${path})"></div>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -20,38 +20,6 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="card card-primary card-outline">
-                            <div class="card-header">
-                                <h3 class="card-title">基本信息</h3>
-                            </div> <!-- /.card-body -->
-                            <div class="card-body">
-                                <form role="form" id="userNameForm">
-                                    <div class="form-group col-sm-8">
-                                        <div class="alert alert-danger" id="updateUserName-info" style=" display: none;"></div>
-                                    </div>
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label>登陆名称</label>
-                                        <input type="text" class="form-control" id="loginUserName"
-                                               name="loginUserName"
-                                               placeholder="请输入登陆名称" required="true" th:value="${loginUserName}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>用户名称</label>
-                                        <input type="text" class="form-control" id="nickName"
-                                               name="nickName"
-                                               placeholder="请输入昵称" required="true" th:value="${nickName}">
-                                    </div>
-                                    <div class="card-footer">
-                                        <button type="button" id="updateUserNameButton" onsubmit="return false;"
-                                                class="btn btn-danger float-right">确认修改
-                                        </button>
-                                    </div>
-                                </form>
-                            </div><!-- /.card-body -->
-                        </div>
-                    </div>
                     <div class="col-md-6">
                         <div class="card card-primary card-outline">
                             <div class="card-header">
@@ -90,7 +58,7 @@
     </div>
     <!-- /.content-wrapper -->
     <!-- 引入页脚footer-fragment -->
-    <div th:replace="admin/footer::footer-fragment"></div>
+    <div th:replace="footer::footer-fragment"></div>
 </div>
 <!-- jQuery -->
 <script th:src="@{/admin/plugins/jquery/jquery.min.js}"></script>
@@ -103,6 +71,6 @@
 <!-- public.js -->
 <script th:src="@{/admin/dist/js/public.js}"></script>
 <!-- profile -->
-<script th:src="@{/admin/dist/js/profile.js}"></script>
+<script th:src="@{/admin/dist/js/updatepaw.js}"></script>
 </body>
 </html>

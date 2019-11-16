@@ -59,4 +59,10 @@ public class GermanyNewsServiceImpl implements GermanyNewsService{
         boolean flag = germanyNewsMapper.deleteBatchGermanyNews(ids);
         return flag;
     }
+
+    @Override
+    public List<GermanyNews> getGermanyNewsList() {
+        List<GermanyNews> germanyNewsList = germanyNewsMapper.findGermanyAllList();
+        return germanyNewsList;
+    }
 }
