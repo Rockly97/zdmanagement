@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.awt.image.RGBImageFilter;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("//germany")
+@RequestMapping("/germany")
 public class GermanyApiController {
     @Autowired
     private GermanyNewsService germanyNewsService;
@@ -39,6 +40,19 @@ public class GermanyApiController {
             return ResultGenerator.getFailResult("查询失败！");
         }
         return ResultGenerator.getSuccessResult(resourcePage);
+    }
+
+    @RequestMapping("/listByid")
+    public Result getGermanyById(@RequestParam String germanyId){
+        GermanyNews germanyNewsItem = germanyNewsService.getGermanyNewsItem(germanyId);
+        Result result = null;
+        if(germanyNewsItem!=null){
+            result = ResultGenerator.getSuccessResult(germanyNewsItem);
+        } else {
+            result = ResultGenerator.getFailResult("查找失败！");
+        }
+
+        return result;
     }
 
 }

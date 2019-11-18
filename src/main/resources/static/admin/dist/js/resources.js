@@ -14,8 +14,8 @@ $(function () {
             {label: '状态', name: 'flag', index: 'flag', width: 30, formatter: statusFormatter,align:"center"}
         ],
         height: 700,
-        rowNum: 3,
-        rowList: [3, 6, 9],
+        rowNum: 6,
+        rowList: [6, 10, 14],
         styleUI: 'Bootstrap',
         loadtext: '信息读取中...',
         rownumbers: false,

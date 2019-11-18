@@ -79,7 +79,7 @@ public class LoginController {
             zdUser.setName(nickName);
             zdUser.setPhone(phone);
             zdUser.setEmail(email);
-            zdUser.setPassword(password);
+            zdUser.setPassword(MD5Util.MD5Encode(password,"utf-8"));
             String msg = adminUserService.saveUser(zdUser);
             if("nameture".equals(msg)){
                 return "用户已存在";

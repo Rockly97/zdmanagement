@@ -43,6 +43,11 @@ public class MD5Util {
         return resultString;
     }
 
+    public static void main(String[] args) {
+
+        String x = MD5Encode("123456", "utf-8");
+        System.out.println(x);
+    }
     private static final String hexDigits[] = {"0", "1", "2", "3", "4", "5",
             "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
 }

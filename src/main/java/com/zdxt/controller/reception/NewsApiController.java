@@ -8,6 +8,7 @@ import com.zdxt.model.IndexNews;
 import com.zdxt.service.IndexNewsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -21,7 +22,7 @@ import java.util.Map;
  */
 @CrossOrigin
 @RequestMapping("/news")
-@Api(tags = "NewsApiController",description = "获取新闻接口和图片置顶新闻")
+@Api(tags = "NewsApi",description = "获取新闻接口和图片置顶新闻")
 @RestController
 public class NewsApiController {
 
@@ -30,8 +31,11 @@ public class NewsApiController {
 
     @PostMapping("/list")
     @ResponseBody
-    @ApiOperation(value = "获取新闻",notes = "获取新闻")
-    @ApiImplicitParam(name = "params",value = "传入page和limit")
+    @ApiOperation(httpMethod = "post",value = "获取新闻",notes = "获取新闻列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "limit", value = "每页条数", required = false),
+            @ApiImplicitParam(name = "page",value = "当前页码",required = false)
+    })
     public Result newsList(@RequestParam Map<String, Object> params){
         if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
             return ResultGenerator.getFailResult("参数异常！");
@@ -44,7 +48,9 @@ public class NewsApiController {
         return ResultGenerator.getSuccessResult(resourcePage);
     }
 
+
     @RequestMapping("/topic")
+    @ApiOperation(httpMethod = "post",value = "获取置顶新闻")
     @ResponseBody
     public Result newsTopic(){
          List<IndexNews> indexNewsList = indexNewsService.findNewsTopic();
@@ -53,6 +59,23 @@ public class NewsApiController {
         }
         return ResultGenerator.getFailResult("查询失败");
     }
+
+
+    @RequestMapping("/newsByid")
+    @ApiOperation(httpMethod = "POST",value = "获取置顶新闻",notes = "获取新闻")
+    @ApiImplicitParam(name = "id",value = "获取置顶的新闻")
+    public Result newsById(@RequestParam String id){
+        IndexNews newsItem = indexNewsService.getNewsItem(id);
+        Result result = null;
+        if(newsItem!=null){
+            result = ResultGenerator.getSuccessResult(newsItem);
+        } else {
+            result = ResultGenerator.getFailResult("查找失败！");
+        }
+        return result;
+    }
+
+
 
 }
 

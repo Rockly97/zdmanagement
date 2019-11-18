@@ -55,7 +55,7 @@
 
 
     <select id="getTotalGermanyNews" resultType="int">
-        SELECT count(*) FROM germany_news
+        SELECT count(*) FROM germany_news where flag = 1
     </select>
 
 
