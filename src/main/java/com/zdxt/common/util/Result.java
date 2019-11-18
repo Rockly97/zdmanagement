@@ -1,5 +1,7 @@
 package com.zdxt.common.util;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -9,10 +11,14 @@ import java.io.Serializable;
  */
 
 @Data
+@ApiModel(value = "基础返回类",description = "基础返回类")
 public class Result<T> implements Serializable {
 
+    @ApiModelProperty(example = "200")
     private int resultCode;
+    @ApiModelProperty(example = "SUCCESS")
     private String message;
+
     private T data;
 
 

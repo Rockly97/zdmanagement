@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 import java.util.Map;
@@ -31,12 +32,13 @@ public class NewsApiController {
 
     @PostMapping("/list")
     @ResponseBody
-    @ApiOperation(httpMethod = "post",value = "获取新闻",notes = "获取新闻列表")
+    @ApiOperation(value = "获取新闻",notes = "获取新闻列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "limit", value = "每页条数", required = false),
-            @ApiImplicitParam(name = "page",value = "当前页码",required = false)
+            @ApiImplicitParam(name = "page",paramType = "query",value = "当前页码",dataType = "Integer",required = true),
+            @ApiImplicitParam(name = "limit",paramType = "query",value = "每页条数",dataType = "Integer",required = true),
+            @ApiImplicitParam(name = "keyword",paramType = "query",value = "查询条件",dataType = "String",required = false)
     })
-    public Result newsList(@RequestParam Map<String, Object> params){
+    public Result<IndexNews> newsList(@ApiIgnore @RequestParam Map<String, Object> params){
         if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
             return ResultGenerator.getFailResult("参数异常！");
         }
@@ -49,10 +51,10 @@ public class NewsApiController {
     }
 
 
-    @RequestMapping("/topic")
-    @ApiOperation(httpMethod = "post",value = "获取置顶新闻")
+    @GetMapping("/topic")
+    @ApiOperation(value = "获取置顶新闻")
     @ResponseBody
-    public Result newsTopic(){
+    public Result<IndexNews> newsTopic(){
          List<IndexNews> indexNewsList = indexNewsService.findNewsTopic();
         if(indexNewsList.size() > 0){
             return ResultGenerator.getSuccessResult(indexNewsList);
@@ -61,10 +63,10 @@ public class NewsApiController {
     }
 
 
-    @RequestMapping("/newsByid")
-    @ApiOperation(httpMethod = "POST",value = "获取置顶新闻",notes = "获取新闻")
-    @ApiImplicitParam(name = "id",value = "获取置顶的新闻")
-    public Result newsById(@RequestParam String id){
+    @PostMapping("/newsByid")
+    @ApiOperation(value = "根据Id获取新闻")
+    @ApiImplicitParam(name = "id",value = "获取置顶的新闻",paramType = "query")
+    public Result<IndexNews> newsById(@RequestParam("id") String id){
         IndexNews newsItem = indexNewsService.getNewsItem(id);
         Result result = null;
         if(newsItem!=null){

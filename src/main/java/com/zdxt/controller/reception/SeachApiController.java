@@ -3,21 +3,34 @@ package com.zdxt.controller.reception;
 import com.zdxt.common.util.*;
 import com.zdxt.service.ResourcesService;
 import com.zdxt.service.SearchService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
 @CrossOrigin
 @RestController
 @RequestMapping
+@Api(tags = "SeachApi", description = "获取全局搜索")
 public class SeachApiController{
+
     @Autowired
     SearchService searchService;
-    @RequestMapping(value = "/search/list",method = RequestMethod.GET)
+
+
+    @GetMapping(value = "/search/list")
     @ResponseBody
-    public Result list(@RequestParam Map<String, Object> params) {
+    @ApiOperation(value = "获取新闻",notes = "获取新闻列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "search",paramType = "query",value = "查询条件",dataType = "String",required = false)
+    })
+    public Result list(@ApiIgnore @RequestParam Map<String, Object> params) {
         String search = (String) params.get("search");
         String s1=search.trim();
         System.out.println(s1);

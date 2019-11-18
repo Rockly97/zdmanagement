@@ -1,7 +1,10 @@
 package com.zdxt.common.util;
 
+import io.swagger.annotations.ApiModel;
+
 import java.io.Serializable;
 import java.util.List;
+
 
 public class SearchResult implements Serializable {
     private String sTitle;
