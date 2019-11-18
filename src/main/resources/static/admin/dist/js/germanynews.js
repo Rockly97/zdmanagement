@@ -13,7 +13,7 @@ $(function () {
         ],
         height: 700,
         rowNum: 10,
-        rowList: [6, 10, 14],
+        rowList: [10, 20, 30],
         styleUI: 'Bootstrap',
         loadtext: '信息读取中...',
         rownumbers: false,
