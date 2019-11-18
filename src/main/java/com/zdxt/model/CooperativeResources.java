@@ -1,6 +1,7 @@
 package com.zdxt.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,6 +13,7 @@ public class CooperativeResources implements Serializable {
      *
      * @mbggenerated Thu Nov 07 19:52:19 CST 2019
      */
+    @ApiModelProperty(example = "1011010101")
     private String id;
 
     /**
@@ -20,6 +22,7 @@ public class CooperativeResources implements Serializable {
      *
      * @mbggenerated Thu Nov 07 19:52:19 CST 2019
      */
+    @ApiModelProperty(example = "https://baidu.com")
     private String url;
 
     /**
@@ -28,6 +31,7 @@ public class CooperativeResources implements Serializable {
      *
      * @mbggenerated Thu Nov 07 19:52:19 CST 2019
      */
+    @ApiModelProperty(example = "合作资源题目")
     private String title;
 
     /**
@@ -37,6 +41,7 @@ public class CooperativeResources implements Serializable {
      * @mbggenerated Thu Nov 07 19:52:19 CST 2019
      */
 
+    @ApiModelProperty(example = "2010-03-12 12:11")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private Date createTime;
 
@@ -46,6 +51,8 @@ public class CooperativeResources implements Serializable {
      *
      * @mbggenerated Thu Nov 07 19:52:19 CST 2019
      */
+    @ApiModelProperty(example = "2010-03-15 06:11")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private Date updateTime;
 
     /**
@@ -54,6 +61,7 @@ public class CooperativeResources implements Serializable {
      *
      * @mbggenerated Thu Nov 07 19:52:19 CST 2019
      */
+    @ApiModelProperty(example = "合作资源描述xxxxxxxx")
     private String description;
 
     /**
@@ -62,6 +70,7 @@ public class CooperativeResources implements Serializable {
      *
      * @mbggenerated Thu Nov 07 19:52:19 CST 2019
      */
+    @ApiModelProperty(example = "/image/abc.jpg")
     private String logo;
 
     /**
@@ -70,6 +79,7 @@ public class CooperativeResources implements Serializable {
      *
      * @mbggenerated Thu Nov 07 19:52:19 CST 2019
      */
+    @ApiModelProperty(example = "0")
     private String kind;
 
     /**
@@ -78,6 +88,7 @@ public class CooperativeResources implements Serializable {
      *
      * @mbggenerated Thu Nov 07 19:52:19 CST 2019
      */
+    @ApiModelProperty(example = "0")
     private Integer flag;
 
     /**
