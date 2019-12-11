@@ -54,7 +54,7 @@ public class UploadController {
             e.printStackTrace();
         }
         Result result = ResultGenerator.getSuccessResult();
-        result.setData(MyBlogUtils.getHost(new URI(httpServletRequest.getRequestURI()+""))+"/temp/"+newFileName);
+        result.setData("http://106.52.3.235:8888/temp/"+newFileName);
         return result;
     }
 

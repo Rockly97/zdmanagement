@@ -31,7 +31,6 @@ public class NewsApiController {
     private IndexNewsService indexNewsService;
 
     @PostMapping("/list")
-    @ResponseBody
     @ApiOperation(value = "获取新闻",notes = "获取新闻列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page",paramType = "query",value = "当前页码",dataType = "Integer",required = true),

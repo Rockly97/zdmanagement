@@ -32,6 +32,18 @@ public class BannerController {
         request.setAttribute("path","banner");
         return "banner";
     }
+    @GetMapping("/banner/list")
+    @ResponseBody
+    public Result list(){
+        List<IndexBanner> all = indexBannerService.findAll();
+        System.out.println(all);
+        if(all!=null){
+            return ResultGenerator.getSuccessResult(all);
+        }else {
+            return ResultGenerator.getFailResult("查询数据失败");
+        }
+
+    }
     @GetMapping({"/banner/deleteImg"})
     public String deleteImg(HttpServletRequest request){
         File fileDirectory = new File(UploadController.TEMP);
@@ -47,18 +59,7 @@ public class BannerController {
             }
 
     }
-    @GetMapping("/banner/list")
-    @ResponseBody
-    public Result list(){
-        List<IndexBanner> all = indexBannerService.findAll();
-        System.out.println(all);
-        if(all!=null){
-            return ResultGenerator.getSuccessResult(all);
-        }else {
-          return ResultGenerator.getFailResult("查询数据失败");
-        }
 
-    }
     @GetMapping({"/banner/edit"})
     public String bannerEdit(HttpServletRequest request, RedirectAttributes attributes){
         List<IndexBanner> all = indexBannerService.findAll();

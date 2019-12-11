@@ -129,8 +129,8 @@ public class ActivityController {
         if (StringUtils.isEmpty(title)) {
             return ResultGenerator.getFailResult("请输入活动标题");
         }
-        if (content.trim().length() > 450) {
-            return ResultGenerator.getFailResult("内容过长");
+        if (content.trim().length() > 30) {
+            return ResultGenerator.getFailResult("时间范围不正确");
         }
         if (remark.trim().length() > 450) {
             return ResultGenerator.getFailResult("备注过长");

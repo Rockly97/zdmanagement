@@ -47,7 +47,7 @@ $(function () {
     });
 
     function coverImageFormatter(cellvalue) {
-        return "<img src='http://localhost:8888/" + cellvalue + "' height=\"120\" width=\"160\" alt='coverImage'/>";
+        return "<img src='http://106.52.3.235:8888/" + cellvalue + "' height=\"120\" width=\"160\" alt='coverImage'/>";
     }
 
     function statusFormatter(cellvalue) {
