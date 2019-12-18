@@ -36,14 +36,14 @@ public class ResouceApiController {
     @PostMapping(value = "/resources/list")
     @ResponseBody
     public Result<CooperativeResources> list(@ApiIgnore @RequestParam Map<String, Object> params) {
-        System.out.println(params.get("page"));
-        System.out.println(params.get("limit"));
-        System.out.println(params.get("keyword"));
-        if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
-            return ResultGenerator.getFailResult("参数异常！");
-        }
-        PageQueryUtil pageUtil = new PageQueryUtil(params);
-        PageResult resourcePage = resourcesService.getResourcePageApi(pageUtil);
+            System.out.println(params.get("page"));
+            System.out.println(params.get("limit"));
+            System.out.println(params.get("keyword"));
+            if (StringUtils.isEmpty(params.get("page")) || StringUtils.isEmpty(params.get("limit"))) {
+                return ResultGenerator.getFailResult("参数异常！");
+            }
+            PageQueryUtil pageUtil = new PageQueryUtil(params);
+            PageResult resourcePage = resourcesService.getResourcePageApi(pageUtil);
         if (resourcePage==null||resourcePage.getList().size()==0){
             return ResultGenerator.getFailResult("查询失败！");
         }

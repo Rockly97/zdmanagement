@@ -255,7 +255,7 @@
         //字数统计提示，{#count}代表当前字数，{#leave}代表还可以输入多少字符数,留空支持多语言自动切换，否则按此配置显示
         ,wordCountMsg:'当前已输入 {#count} 个字符，您还可以输入{#leave} 个字符'   //当前已输入 {#count} 个字符，您还可以输入{#leave} 个字符
         //超出字数限制提示  留空支持多语言自动切换，否则按此配置显示
-        //,wordOverFlowMsg:''    //<span style="color:red;">你输入的字符个数已经超出最大允许值，服务器可能会拒绝保存！</span>
+        ,wordOverFlowMsg:'<span style="color:red;">你输入的字符个数已经超出最大允许值，服务器可能会拒绝保存！</span>'    //<span style="color:red;">你输入的字符个数已经超出最大允许值，服务器可能会拒绝保存！</span>
 
         //tab
         //点击tab键时移动的距离,tabSize倍数，tabNode什么字符做为单位
@@ -277,11 +277,11 @@
 
         //autoHeightEnabled
         // 是否自动长高,默认true
-        //,autoHeightEnabled:true
+        ,autoHeightEnabled:false
 
         //scaleEnabled
         //是否可以拉伸长高,默认true(当开启时，自动长高失效)
-        //,scaleEnabled:false
+        ,scaleEnabled:false
         //,minFrameWidth:800    //编辑器拖动时最小宽度,默认800
         //,minFrameHeight:220  //编辑器拖动时最小高度,默认220
 
@@ -294,7 +294,7 @@
         //,toolbarTopOffset:400
 
         //设置远程图片是否抓取到本地保存
-        //,catchRemoteImageEnable: true //设置是否抓取远程图片
+        ,catchRemoteImageEnable: true //设置是否抓取远程图片
 
         //pageBreakTag
         //分页标识符,默认是_ueditor_page_break_tag_

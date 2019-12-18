@@ -49,7 +49,7 @@ public class GermanyNewsServiceImpl implements GermanyNewsService{
     public PageResult getGermanyNewsPage(PageQueryUtil queryUtil) {
         List<GermanyNews> germanyNewsList =  germanyNewsMapper.findGermanyNewsList(queryUtil);
         int total = germanyNewsMapper.getTotalGermanyNews(queryUtil);
-        PageResult pageResult = new PageResult(germanyNewsList,total,queryUtil.getPage(),queryUtil.getLimit());
+        PageResult pageResult = new PageResult(germanyNewsList,total,queryUtil.getLimit(),queryUtil.getPage());
         return pageResult;
     }
 
@@ -63,7 +63,7 @@ public class GermanyNewsServiceImpl implements GermanyNewsService{
     public PageResult getGermanyNewsList(PageQueryUtil pageUtil) {
         List<GermanyNews> germanyNewsList =  germanyNewsMapper.findGermanyAllList(pageUtil);
         int total = germanyNewsMapper.getTotalGermanyNews(pageUtil);
-        PageResult pageResult = new PageResult(germanyNewsList,total,pageUtil.getPage(),pageUtil.getLimit());
+        PageResult pageResult = new PageResult(germanyNewsList,total,pageUtil.getLimit(),pageUtil.getPage());
         return pageResult;
     }
 }

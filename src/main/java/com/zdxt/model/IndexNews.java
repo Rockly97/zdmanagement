@@ -17,11 +17,11 @@ public class IndexNews implements Serializable {
     private String title;
 
     @ApiModelProperty(example = "2010-03-12 12:11")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
     @ApiModelProperty(example = "2010-03-15 06:11")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;
 
     @ApiModelProperty(example = "新闻描述xxxxxxxx")

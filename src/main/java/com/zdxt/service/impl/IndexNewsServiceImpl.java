@@ -126,7 +126,7 @@ public class IndexNewsServiceImpl implements IndexNewsService {
     public PageResult getNewsPage(PageQueryUtil queryUtil) {
         List<IndexNews> indexNewsList =  indexNewsMapper.findNewsList(queryUtil);
         int total = indexNewsMapper.getTotalNews(queryUtil);
-        PageResult pageResult = new PageResult(indexNewsList,total,queryUtil.getPage(),queryUtil.getLimit());
+        PageResult pageResult = new PageResult(indexNewsList,total,queryUtil.getLimit(),queryUtil.getPage());
         return pageResult;
     }
 
@@ -156,7 +156,7 @@ public class IndexNewsServiceImpl implements IndexNewsService {
     public PageResult getNewsList(PageQueryUtil pageUtil) {
         List<IndexNews> indexNewsList =  indexNewsMapper.findNewsListItme(pageUtil);
         int total = indexNewsMapper.getTotalNewsItem(pageUtil);
-        PageResult pageResult = new PageResult(indexNewsList,total,pageUtil.getPage(),pageUtil.getLimit());
+        PageResult pageResult = new PageResult(indexNewsList,total,pageUtil.getLimit(),pageUtil.getPage());
         return pageResult;
     }
 

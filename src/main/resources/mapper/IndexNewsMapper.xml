@@ -58,7 +58,17 @@
 
 
     <select id="findNewsList"  parameterType="Map" resultMap="NewsBaseMap">
-        select * FROM index_news WHERE 1=1
+        select id,
+        title,
+        create_time,
+        update_time,
+        description,
+        first_picture,
+        kind,
+        flag,
+        level,
+        author
+        FROM index_news WHERE 1=1
         <if test="keyword != null">
             <if test="keyword != '0'.toString() and keyword != '1'.toString()">
                 AND kind = #{keyword}
@@ -67,9 +77,11 @@
         <if test="keyword == '1'.toString()">
             AND level > 0
         </if>
+        order by update_time desc,create_time desc
         <if test="start!=null and limit!=null">
             limit #{start},#{limit}
         </if>
+
     </select>
     <select id="findSearch"  parameterType="java.lang.String" resultMap="NewsBaseMap">
         select * FROM index_news WHERE flag=1
@@ -86,7 +98,7 @@
             </if>
         </if>
 
-        <if test="keyword != '1'.toString()">
+        <if test="keyword != null and keyword != '1'.toString()">
             AND level > 0
         </if>
     </select>
@@ -128,9 +140,11 @@
         <if test="keyword == '1'.toString()">
             AND level > 0
         </if>
+        order by update_time desc,create_time desc
         <if test="start!=null and limit!=null">
             limit #{start},#{limit}
         </if>
+
     </select>
 
 

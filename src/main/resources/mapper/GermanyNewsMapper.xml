@@ -40,15 +40,18 @@
 
     <select id="findGermanyNewsList" resultMap="GermanyNewsMap" parameterType="Map">
         select * FROM germany_news
+        order by update_time desc,create_time desc
         <if test="start != null and limit != null">
             limit #{start},#{limit}
         </if>
+
     </select>
     <select id="findSearch" resultMap="GermanyNewsMap" parameterType="java.lang.String">
         select * FROM germany_news WHERE flag=1
         <if test='search!=null'>
             AND (title like CONCAT('%',#{search},'%') or content like CONCAT('%',#{search},'%'))
         </if>
+        order by update_time desc,create_time desc
     </select>
 
 
@@ -80,9 +83,11 @@
         <if test="keyword == '1'.toString()">
             AND level > 0
         </if>
+        order by update_time,create_time desc
         <if test="start!=null and limit!=null">
             limit #{start},#{limit}
         </if>
+
     </select>
     <select id="getCount" resultType="int">
         SELECT count(*) FROM germany_news

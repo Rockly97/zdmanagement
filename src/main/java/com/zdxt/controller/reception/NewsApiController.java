@@ -43,7 +43,7 @@ public class NewsApiController {
         }
         PageQueryUtil pageUtil = new PageQueryUtil(params);
         PageResult resourcePage = indexNewsService.getNewsList(pageUtil);
-        if (resourcePage==null||resourcePage.getList().size()==0){
+        if (resourcePage == null || resourcePage.getList().size()==0){
             return ResultGenerator.getFailResult("查询失败！");
         }
         return ResultGenerator.getSuccessResult(resourcePage);

@@ -33,7 +33,8 @@ public class ImageHunter {
 		
 		this.filename = (String)conf.get( "filename" );
 		this.savePath = (String)conf.get( "savePath" );
-		this.rootPath = (String)conf.get( "rootPath" );
+//		this.rootPath = (String)conf.get( "rootPath" );
+		this.rootPath = (String)conf.get( "basePath" );
 		this.maxSize = (Long)conf.get( "maxSize" );
 		this.allowTypes = Arrays.asList( (String[])conf.get( "allowFiles" ) );
 		this.filters = Arrays.asList( (String[])conf.get( "filter" ) );
@@ -83,7 +84,7 @@ public class ImageHunter {
 			if ( !validFileSize( connection.getContentLength() ) ) {
 				return new BaseState( false, AppInfo.MAX_SIZE );
 			}
-			
+			//this.filename = this.savePath.substring(this.savePath.lastIndexOf("/"));
 			String savePath = this.getPath( this.savePath, this.filename, suffix );
 			String physicalPath = this.rootPath + savePath;
 

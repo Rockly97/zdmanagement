@@ -42,7 +42,7 @@ public class CooperativeResources implements Serializable {
      */
 
     @ApiModelProperty(example = "2010-03-12 12:11")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
     /**
@@ -52,7 +52,7 @@ public class CooperativeResources implements Serializable {
      * @mbggenerated Thu Nov 07 19:52:19 CST 2019
      */
     @ApiModelProperty(example = "2010-03-15 06:11")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;
 
     /**

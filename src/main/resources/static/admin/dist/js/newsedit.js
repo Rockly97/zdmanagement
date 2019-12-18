@@ -3,7 +3,6 @@ $(function () {
     $('.select2').select2();
     console.log($("#content").text());
     ue.ready(function () {
-
         ue.setContent($("#content").val());
     });
 
@@ -49,13 +48,13 @@ $(function () {
             return;
         }
         if (!validLength(title, 150)) {
-            swal("标题过长 字数限制在150", {
+            swal("标题过长，字数限制在150", {
                 icon: "error",
             });
             return;
         }
-        if (!validLength(description, 150)) {
-            swal("描述字数过多", {
+        if (!validLength(description, 300)) {
+            swal("描述字数过多，字数限制在300", {
                 icon: "error",
             });
             return;
